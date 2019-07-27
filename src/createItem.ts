@@ -1,4 +1,4 @@
-import Item, { ItemEventType, ItemEventPayload, ItemEvent, ItemEvents, State } from "./Item"
+import Item, { ItemEventType, ItemEvent, ItemEvents, State } from "./Item"
 import generateHash from "./generateHash"
 
 const reduceState = (state: State | null, event: ItemEvent) : State => {
@@ -87,8 +87,8 @@ const reduceItem = (item: Item | null, event: ItemEvent) : Item => {
   }
 }
 
-// @TODO: HOF
 const createItem = (events: ItemEvents) : Item => events.reduce(reduceItem, null)
-const updateItem = (item: Item, events: ItemEvents) : Item => events.reduce(reduceItem, item)
+// @TODO: HOF for createItem, updateItem
+//const updateItem = (item: Item, events: ItemEvents) : Item => events.reduce(reduceItem, item)
 
 export default createItem

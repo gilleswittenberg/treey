@@ -1,4 +1,4 @@
-import Item, { Items, ItemEvent, ItemEvents } from "./Item"
+import Item, { Items, ItemEvent } from "./Item"
 import { UUID } from "./types"
 
 type IDBDatabaseEvent = Event & { target: { result: IDBDatabase } }
@@ -101,13 +101,19 @@ const updateItem = async (id: UUID, entityEvent: ItemEvent) => {
   return new Promise<Item>((resolve, reject) => {
 
     const request = objectStore.get(id)
-    request.onerror = event => reject()
+    request.onerror = event => {
+      console.error(event)
+      reject()
+    }
     request.onsuccess = (event: IDBDatabaseEventItem) => {
       const entity = event.target.result
       // @TODO: Fail when burned
       entity.events.push(entityEvent)
       const putRequest = objectStore.put(entity)
-      putRequest.onerror = event => reject()
+      putRequest.onerror = event => {
+        console.error(event)
+        reject()
+      }
       putRequest.onsuccess = event => {
         console.log(event)
         resolve(entity)

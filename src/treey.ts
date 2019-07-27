@@ -13,7 +13,7 @@ const create = async (data?: Data) => {
   const itemEventCreate = createEvent(ItemEventType.Create)
   const itemEventIdentityAdd = createEvent(ItemEventType.IdentityAdd, { id })
   const itemEventDataSet = createEvent(ItemEventType.DataSet, data)
-  const events = [itemEventCreate, itemEventDataSet]
+  const events = [itemEventCreate, itemEventIdentityAdd, itemEventDataSet]
   const item = createItem(events)
   await saveItem(item)
 }
@@ -50,4 +50,14 @@ const removeRelation = async (name: UUID, index?: Index) => {
   if (index != null) payload.index = index
   const itemEventRelationRemove = createEvent(ItemEventType.RelationRemove, payload)
   await updateItem(name, itemEventRelationRemove)
+}
+
+export {
+  create,
+  read,
+  update,
+  del,
+  index,
+  addRelation,
+  removeRelation
 }

@@ -1,4 +1,4 @@
-import { ItemEventType, ItemEventPayload, ItemEvent, ItemEvents, State } from "./Item"
+import { ItemEventType, ItemEventPayload, ItemEvent } from "./Item"
 
 const validateEventPayload = (type: ItemEventType, payload?: ItemEventPayload) => {
 
