@@ -87,6 +87,8 @@ const reduceItem = (item: Item | null, event: ItemEvent) : Item => {
   }
 }
 
+// @TODO: HOF
 const createItem = (events: ItemEvents) : Item => events.reduce(reduceItem, null)
+const updateItem = (item: Item, events: ItemEvents) : Item => events.reduce(reduceItem, item)
 
 export default createItem
