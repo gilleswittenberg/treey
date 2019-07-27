@@ -8,21 +8,21 @@ const validateEventPayload = (type: ItemEventType, payload?: ItemEventPayload) =
   case ItemEventType.Create:
     return null
   case ItemEventType.IdentityAdd:
-    return { id: payload.id }
+    return payload.id != null ? { id: payload.id } : null
   case ItemEventType.IdentityRemove:
-    return { id: payload.id }
+    return payload.id != null ? { id: payload.id } : null
   case ItemEventType.Burn:
     return null
   case ItemEventType.SchemaSet:
-    return { schema: payload.schema }
+    return payload.schema != null ? { schema: payload.schema } : null
   case ItemEventType.DataSet:
-    return { data: payload.data }
+    return payload.data != null ? { data: payload.data } : null
   case ItemEventType.RelationAdd:
-    return { id: payload.id, index: payload.index }
+    return payload.id != null ? { id: payload.id, index: payload.index } : null
   case ItemEventType.IdentityRemove:
-    return { id: payload.id, index: payload.index }
+    return payload.id != null ? { id: payload.id, index: payload.index } : null
   case ItemEventType.Prune:
-    return { state: payload.state }
+    return payload.state != null ? { state: payload.state } : null
   }
 }
 
