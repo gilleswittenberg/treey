@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^12.6.8",
     "multihashes": "^0.4.15",
     "typescript": "^3.5.2"
   },
