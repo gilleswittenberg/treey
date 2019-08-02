@@ -1,9 +1,11 @@
-import Item, { Items, ItemEvent } from "./Item"
-import { UUID } from "./types"
+import DBItem, { DBItems } from "../DBItem"
+import { UUID } from "../types"
 
 type IDBDatabaseEvent = Event & { target: { result: IDBDatabase } }
-type IDBDatabaseEventItem = Event & { target: { result: Item } }
-type IDBDatabaseEventItems = Event & { target: { result: Items } }
+type IDBDatabaseEventItem = Event & { target: { result: DBItem } }
+type IDBDatabaseEventItems = Event & { target: { result: DBItems } }
+
+// Initialization
 
 const databaseName = "Treey"
 
@@ -11,9 +13,7 @@ const initIndexedDB = async () => {
 
   return new Promise<IDBDatabase>((resolve, reject) => {
 
-    if (!window.indexedDB) {
-        reject("IndexedDB not supported")
-    }
+    if (!window.indexedDB) reject("IndexedDB not supported")
 
     const request = window.indexedDB.open(databaseName, 1)
 
@@ -37,7 +37,6 @@ const initIndexedDB = async () => {
         const request = event.target as IDBRequest
         const db = request.result
 
-        // objects
         const objectStore = db.createObjectStore("items", { autoIncrement: true })
         objectStore.createIndex("id", "id", { unique: true })
       }
@@ -52,8 +51,11 @@ let objectStore: IDBObjectStore
   objectStore = database.transaction("items", "readwrite").objectStore("items")
 })()
 
+
+// API
+
 const getItem = async (id: UUID) => {
-  return new Promise<Item>((resolve, reject) => {
+  return new Promise<DBItem>((resolve, reject) => {
 
     const request = objectStore.get(id)
     request.onerror = event => {
@@ -61,14 +63,14 @@ const getItem = async (id: UUID) => {
       reject()
     }
     request.onsuccess = (event: IDBDatabaseEventItem) => {
-      const entity = event.target.result
-      resolve(entity)
+      const item = event.target.result
+      resolve(item)
     }
   })
 }
 
 const getItems = async () => {
-  return new Promise<Items>((resolve, reject) => {
+  return new Promise<DBItems>((resolve, reject) => {
 
     const request = objectStore.getAll()
     request.onerror = event => {
@@ -82,50 +84,38 @@ const getItems = async () => {
   })
 }
 
-const saveItem = async (entity: Item) => {
-  return new Promise<boolean>((resolve, reject) => {
+const addItem = async (item: DBItem) => {
+  return new Promise<DBItem>((resolve, reject) => {
 
-    const request = objectStore.add(entity)
-    request.onerror = event => {
-      console.error(event)
-      reject(false)
-    }
-    request.onsuccess = event => {
-      console.log(event)
-      resolve(true)
-    }
-  })
-}
-
-const updateItem = async (id: UUID, entityEvent: ItemEvent) => {
-  return new Promise<Item>((resolve, reject) => {
-
-    const request = objectStore.get(id)
+    const request = objectStore.add(item)
     request.onerror = event => {
       console.error(event)
       reject()
     }
-    request.onsuccess = (event: IDBDatabaseEventItem) => {
-      const entity = event.target.result
-      // @TODO: Fail when burned
-      entity.events.push(entityEvent)
-      const putRequest = objectStore.put(entity)
-      putRequest.onerror = event => {
-        console.error(event)
-        reject()
-      }
-      putRequest.onsuccess = event => {
-        console.log(event)
-        resolve(entity)
-      }
+    request.onsuccess = event => {
+      console.log(event)
+      resolve(item)
     }
   })
 }
 
+const putItem = async (item: DBItem) => {
+  return new Promise<DBItem>((resolve, reject) => {
+    const request = objectStore.put(item)
+    request.onerror = event => {
+      console.error(event)
+      reject()
+    }
+    request.onsuccess = event => {
+      console.log(event)
+      resolve(item)
+    }
+  })
+}
 
-export {
-  saveItem,
-  updateItem,
+export default {
+  addItem,
+  getItem,
   getItems,
-  getItem
+  putItem
 }

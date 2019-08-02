@@ -35,11 +35,11 @@ interface State {
 }
 
 interface Item {
-  id: UUID,
+  //id: UUID,
   events: ItemEvents,
   state: State,
-  hashes: Hashes,
-  hash: Hash
+  //hashes: Hashes,
+  //hash: Hash
 }
 type Items = Item[]
 

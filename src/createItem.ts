@@ -3,8 +3,8 @@ import generateHash from "./generateHash"
 
 const reduceState = (state: State | null, event: ItemEvent) : State => {
 
-  if (state == null && event.type !== ItemEventType.Create) throw new Error ("State can not be null")
-  if (event.type === ItemEventType.Create && state != null) throw new Error ("First ItemEvent should be Create")
+  //if (state == null && event.type !== ItemEventType.Create) throw new Error ("State can not be null")
+  //if (event.type === ItemEventType.Create && state != null) throw new Error ("First ItemEvent should be Create")
 
   switch (event.type) {
   case ItemEventType.Create: {
@@ -61,34 +61,38 @@ const reduceState = (state: State | null, event: ItemEvent) : State => {
 const reduceItem = (item: Item | null, event: ItemEvent) : Item => {
 
   const is = item != null
-  const isNot = !is
 
-  if (isNot && event.type !== ItemEventType.Create) throw new Error ("Item can not be null")
+  if (!is && event.type !== ItemEventType.Create) throw new Error ("Item can not be null")
   if (is && event.type === ItemEventType.Create) throw new Error ("First ItemEvent should be Create")
   if (is && item.events[item.events.length - 1].type === ItemEventType.Burn) throw new Error ("Can not add additional event after Burn event")
 
+  /*
   const getIdFromIdentityAddEvent = (event: ItemEvent) =>
     event.type === ItemEventType.IdentityAdd && event.payload.id.protocol === "self" ? event.payload.id.name : null
   const id = is && item.id != null ? item.id : getIdFromIdentityAddEvent(event)
+  */
   const currentEvents = is ? item.events : []
   const events = currentEvents.concat(event)
   const currentState = is ? item.state : {}
   const state = reduceState(currentState, event)
-  const hash = generateHash(state)
-  const currentHashes = is ? item.hashes : []
-  const hashes = currentHashes.concat(hash)
+  //const hash = generateHash(state)
+  //const currentHashes = is ? item.hashes : []
+  //const hashes = currentHashes.concat(hash)
 
   return {
-    id,
+    //id,
     events,
     state,
-    hashes,
-    hash
+    //hashes,
+    //hash
   }
 }
 
 const createItem = (events: ItemEvents) : Item => events.reduce(reduceItem, null)
 // @TODO: HOF for createItem, updateItem
-//const updateItem = (item: Item, events: ItemEvents) : Item => events.reduce(reduceItem, item)
+const updateItem = (item: Item, events: ItemEvents) : Item => events.reduce(reduceItem, item)
 
 export default createItem
+export {
+  updateItem
+}

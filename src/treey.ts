@@ -1,63 +1,36 @@
-import { UUID, Data, Index } from "./types"
-import { getItem, getItems, saveItem, updateItem } from "./indexedDB"
+import { Id, Data, Index } from "./types"
+import Item, { Items, ItemEvents, ItemEventType, ItemEventPayload } from "./Item"
 import createUUID from "./createUUID"
-import { ItemEventType, ItemEventPayload } from "./Item"
 import createEvent from "./createEvent"
 import createItem from "./createItem"
+import database from "./database/database"
 
-const protocol = "self"
-
-const create = async (data?: Data) => {
-  const name = createUUID()
-  const id = { protocol, name }
+const create = async () : Promise<Item> => {
   const itemEventCreate = createEvent(ItemEventType.Create)
-  const itemEventIdentityAdd = createEvent(ItemEventType.IdentityAdd, { id })
-  const itemEventDataSet = createEvent(ItemEventType.DataSet, data)
-  const events = [itemEventCreate, itemEventIdentityAdd, itemEventDataSet]
-  const item = createItem(events)
-  await saveItem(item)
+  const item = createItem([itemEventCreate])
+  return await database.create(item)
 }
 
-const read = async (id: UUID) => {
-  return await getItem(id)
+const read = async (id: Id) : Promise<Item> => {
+  return database.read(id)
 }
 
-const update = async (id: UUID, data: Data) => {
-  const itemEventDataSet = createEvent(ItemEventType.DataSet, data)
-  await updateItem(id, itemEventDataSet)
+const update = async (id: Id, events: ItemEvents) : Promise<Item> => {
+  return database.update(id, events)
 }
 
-const del = async (id: UUID) => {
-  const itemEventBurn = createEvent(ItemEventType.Burn)
-  await updateItem(id, itemEventBurn)
+const del = async (id: Id) : Promise<Item> => {
+  return await database.del(id)
 }
 
-const index = async () => {
-  return await getItems()
+const index = async () : Promise<Items> => {
+  return await database.index()
 }
 
-const addRelation = async (name: UUID, index?: Index) => {
-  const id = { protocol, name }
-  const payload: ItemEventPayload = { id }
-  if (index != null) payload.index = index
-  const itemEventRelationAdd = createEvent(ItemEventType.RelationAdd, payload)
-  await updateItem(name, itemEventRelationAdd)
-}
-
-const removeRelation = async (name: UUID, index?: Index) => {
-  const id = { protocol, name }
-  const payload: ItemEventPayload = { id }
-  if (index != null) payload.index = index
-  const itemEventRelationRemove = createEvent(ItemEventType.RelationRemove, payload)
-  await updateItem(name, itemEventRelationRemove)
-}
-
-export {
+export default {
   create,
   read,
   update,
   del,
-  index,
-  addRelation,
-  removeRelation
+  index
 }
