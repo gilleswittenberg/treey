@@ -1,5 +1,5 @@
 import { Data, Id, Index } from "./types/types"
-import { Item, Items, ItemEventType } from "./types/Item"
+import Item, { Items, ItemEventType } from "./types/Item"
 import TreeItem from "./types/TreeItem"
 import crud from "./crud"
 import createEvent from "./createEvent"

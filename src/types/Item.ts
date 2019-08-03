@@ -34,7 +34,7 @@ export interface State {
   relations?: Ids
 }
 
-export interface Item {
+export default interface Item {
   events: ItemEvents,
   state: State,
   //hashes: Hashes,

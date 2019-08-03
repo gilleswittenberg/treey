@@ -5,7 +5,7 @@ import { Id } from "../types/types"
 import createUUID from "../crypto/createUUID"
 import createEvent from "../createEvent"
 import { updateItem } from "../createItem"
-import { Item, ItemEventType, ItemEvent, ItemEvents } from "../types/Item"
+import Item, { ItemEventType, ItemEvent, ItemEvents } from "../types/Item"
 import toArray from "../utils/toArray"
 
 const create = async (item: Item, isRoot = false) => {
