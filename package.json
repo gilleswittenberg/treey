@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "lint": "./node_modules/.bin/eslint src/**/*.ts",
+    "lint": "./node_modules/.bin/eslint src/**/**/*.ts",
     "test": "jest"
   },
   "author": "",
