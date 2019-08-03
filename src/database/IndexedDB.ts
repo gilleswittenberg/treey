@@ -1,9 +1,10 @@
-import DBItem, { DBItems } from "../DBItem"
+import DBItem, { DBItems } from "../types/DBItem"
 import { UUID } from "../types"
 
 type IDBDatabaseEvent = Event & { target: { result: IDBDatabase } }
-type IDBDatabaseEventItem = Event & { target: { result: DBItem } }
-type IDBDatabaseEventItems = Event & { target: { result: DBItems } }
+//type IDBDatabaseEventItem = Event & { target: { result: DBItem } }
+type IDBDatabaseEventItem = Event & { target: EventTarget | null }
+type IDBDatabaseEventItems = Event & { target: EventTarget | null }
 
 // Initialization
 
@@ -63,7 +64,8 @@ const getItem = async (id: UUID) => {
       reject()
     }
     request.onsuccess = (event: IDBDatabaseEventItem) => {
-      const item = event.target.result
+      if (event.target == null) return reject()
+      const item = (event.target as IDBRequest).result
       resolve(item)
     }
   })
@@ -78,7 +80,8 @@ const getItems = async () => {
       reject()
     }
     request.onsuccess = (event: IDBDatabaseEventItems) => {
-      const items = event.target.result
+      if (event.target == null) return reject()
+      const items = (event.target as IDBRequest).result
       resolve(items)
     }
   })

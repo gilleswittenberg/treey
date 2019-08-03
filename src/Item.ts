@@ -1,6 +1,6 @@
-import { UUID, Hash, Hashes, Id, Ids, Index, Schema, Data } from "./types"
+import { Id, Ids, Index, Schema, Data /*, Hash, Hashes, */ } from "./types"
 
-interface ItemEventPayload {
+export interface ItemEventPayload {
   state?: State,
   id?: Id,
   schema?: Schema,
@@ -8,7 +8,7 @@ interface ItemEventPayload {
   index?: Index
 }
 
-enum ItemEventType {
+export enum ItemEventType {
   Create,
   IdentityAdd,
   IdentityRemove,
@@ -20,35 +20,24 @@ enum ItemEventType {
   Prune
 }
 
-interface ItemEvent {
+export interface ItemEvent {
   type: ItemEventType,
   datetime: Date,
   payload?: ItemEventPayload
 }
-type ItemEvents = ItemEvent[]
+export type ItemEvents = ItemEvent[]
 
-interface State {
+export interface State {
   ids?: Ids,
   schema?: Schema,
   data?: Data,
   relations?: Ids
 }
 
-interface Item {
-  //id: UUID,
+export interface Item {
   events: ItemEvents,
   state: State,
   //hashes: Hashes,
   //hash: Hash
 }
-type Items = Item[]
-
-export default Item
-export {
-  Items,
-  ItemEventType,
-  ItemEvent,
-  ItemEvents,
-  ItemEventPayload,
-  State
-}
+export type Items = Item[]

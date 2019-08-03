@@ -5,9 +5,8 @@ import { Id } from "../types"
 import createUUID from "../createUUID"
 import createEvent from "../createEvent"
 import { updateItem } from "../createItem"
-import Item, { ItemEventType, ItemEvent, ItemEvents } from "../Item"
+import { Item, ItemEventType, ItemEvent, ItemEvents } from "../Item"
 import toArray from "../utils/toArray"
-import DBItem from "../DBItem"
 
 const create = async (item: Item) => {
   const name = createUUID()
@@ -20,13 +19,16 @@ const create = async (item: Item) => {
 
 const read = async (treeyId: Id) => {
   const id = treeyId.name
+  if (id == null) return undefined
   return isBrowser ? await IndexedDB.getItem(id) : await MemoryDB.read(id)
 }
 
 const update = async (id: Id, events: ItemEvent | ItemEvents) => {
   const item = await read(id)
-  const updatedItem = updateItem(item, toArray(events)) as DBItem
-  return isBrowser ? await IndexedDB.putItem(updatedItem) : await MemoryDB.update(updatedItem)
+  if (item == null) return undefined
+  const updatedItem = updateItem(item, toArray(events))
+  const dbItem = { id: item.id, ...updatedItem }
+  return isBrowser ? await IndexedDB.putItem(dbItem) : await MemoryDB.update(dbItem)
 }
 
 const del = async (id: Id) => {

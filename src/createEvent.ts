@@ -1,6 +1,6 @@
 import { ItemEventType, ItemEventPayload, ItemEvent } from "./Item"
 
-const validateEventPayload = (type: ItemEventType, payload?: ItemEventPayload) => {
+const validateEventPayload = (type: ItemEventType, payload?: ItemEventPayload) : ItemEventPayload | null => {
 
   if (payload == null) return null
 
@@ -19,16 +19,18 @@ const validateEventPayload = (type: ItemEventType, payload?: ItemEventPayload) =
     return payload.data != null ? { data: payload.data } : null
   case ItemEventType.RelationAdd:
     return payload.id != null ? { id: payload.id, index: payload.index } : null
-  case ItemEventType.IdentityRemove:
+  case ItemEventType.RelationRemove:
     return payload.id != null ? { id: payload.id, index: payload.index } : null
   case ItemEventType.Prune:
     return payload.state != null ? { state: payload.state } : null
   }
+
+  return null
 }
 
-const createEvent = (type: ItemEventType, payload?: ItemEventPayload) => {
+const createEvent = (type: ItemEventType, payload?: ItemEventPayload) : ItemEvent => {
   const datetime = new Date()
-  const event: ItemEvent = { type, datetime }
+  const event = { type, datetime } as ItemEvent
   const validatedPayload = validateEventPayload(type, payload)
   if (validatedPayload != null) event.payload = validatedPayload
   return event
