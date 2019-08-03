@@ -115,9 +115,24 @@ const putItem = async (item: DBItem) => {
   })
 }
 
+const clear = async () => {
+  return new Promise<DBItems>((resolve, reject) => {
+
+    const request = objectStore.clear()
+    request.onerror = event => {
+      console.error(event)
+      reject()
+    }
+    request.onsuccess = () => {
+      resolve([])
+    }
+  })
+}
+
 export default {
   addItem,
   getItem,
   getItems,
-  putItem
+  putItem,
+  clear
 }

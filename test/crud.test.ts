@@ -2,6 +2,9 @@ import crud from "../src/crud"
 import DBItem from "../src/types/DBItem"
 import { ItemEventType } from "../src/types/Item"
 import createEvent from "../src/createEvent"
+import database from "../src/database/database"
+
+beforeEach(async () => await database.clear())
 
 test("create", async () => {
   const item = <DBItem>(await crud.create())
@@ -40,5 +43,5 @@ test("index", async () => {
   await crud.create()
   await crud.create()
   const items = await crud.index()
-  expect(items.length).toBeGreaterThan(1)
+  expect(items.length).toBe(2)
 })

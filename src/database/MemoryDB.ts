@@ -24,9 +24,15 @@ const index = async () : Promise<DBItems> =>  {
   return Object.values(store)
 }
 
+const clear = async () : Promise<DBItems> => {
+  Object.keys(store).forEach((key: UUID) => delete store[key])
+  return await index()
+}
+
 export default {
   create,
   read,
   update,
-  index
+  index,
+  clear
 }

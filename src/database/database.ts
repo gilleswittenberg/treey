@@ -40,10 +40,15 @@ const index = async () => {
   return isBrowser ? await IndexedDB.getItems() : await MemoryDB.index()
 }
 
+const clear = async () => {
+  isBrowser ? await IndexedDB.clear() : await MemoryDB.clear()
+}
+
 export default {
   create,
   read,
   update,
   del,
-  index
+  index,
+  clear
 }
