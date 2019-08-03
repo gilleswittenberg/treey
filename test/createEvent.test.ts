@@ -1,5 +1,5 @@
 import createEvent from "../src/createEvent"
-import { ItemEventType } from "../src/Item"
+import { ItemEventType } from "../src/types/Item"
 
 test("Event.datetime", () => {
   const date = new Date()

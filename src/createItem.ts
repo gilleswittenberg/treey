@@ -1,4 +1,4 @@
-import { Item, ItemEventType, ItemEvent, ItemEvents, State } from "./Item"
+import { Item, ItemEventType, ItemEvent, ItemEvents, State } from "./types/Item"
 import toArray from "./utils/toArray"
 //import generateHash from "./generateHash"
 

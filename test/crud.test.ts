@@ -1,6 +1,6 @@
 import crud from "../src/crud"
 import DBItem from "../src/types/DBItem"
-import { ItemEventType } from "../src/Item"
+import { ItemEventType } from "../src/types/Item"
 import createEvent from "../src/createEvent"
 
 test("create", async () => {

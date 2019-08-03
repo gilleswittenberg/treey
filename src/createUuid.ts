@@ -1,4 +1,4 @@
-import { UUID } from "./types"
+import { UUID } from "./types/types"
 import random from "./crypto/random"
 // @LINK: https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
 const createUUID = () : UUID => {

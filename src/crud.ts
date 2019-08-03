@@ -1,5 +1,5 @@
-import { Id } from "./types"
-import { Item, Items, ItemEvent, ItemEvents, ItemEventType } from "./Item"
+import { Id } from "./types/types"
+import { Item, Items, ItemEvent, ItemEvents, ItemEventType } from "./types/Item"
 import createEvent from "./createEvent"
 import createItem from "./createItem"
 import database from "./database/database"

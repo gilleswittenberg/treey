@@ -1,11 +1,11 @@
 import isBrowser from "../utils/isBrowser"
 import IndexedDB from "./IndexedDB"
 import MemoryDB from "./MemoryDB"
-import { Id } from "../types"
+import { Id } from "../types/types"
 import createUUID from "../createUUID"
 import createEvent from "../createEvent"
 import { updateItem } from "../createItem"
-import { Item, ItemEventType, ItemEvent, ItemEvents } from "../Item"
+import { Item, ItemEventType, ItemEvent, ItemEvents } from "../types/Item"
 import toArray from "../utils/toArray"
 
 const create = async (item: Item, isRoot = false) => {

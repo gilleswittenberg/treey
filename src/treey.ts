@@ -1,7 +1,7 @@
-import crud from "./crud"
-import { Item, Items, ItemEventType } from "./Item"
+import { Data, Id, Index } from "./types/types"
+import { Item, Items, ItemEventType } from "./types/Item"
 import TreeItem from "./types/TreeItem"
-import { Data, Id, Index } from "./types"
+import crud from "./crud"
 import createEvent from "./createEvent"
 
 /*

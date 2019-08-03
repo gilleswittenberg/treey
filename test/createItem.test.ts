@@ -1,6 +1,6 @@
 import createItem, { updateItem } from "../src/createItem"
 import createEvent from "../src/createEvent"
-import { ItemEventType } from "../src/Item"
+import { ItemEventType } from "../src/types/Item"
 
 test("no events", () => {
   expect(() => createItem([])).toThrow()
