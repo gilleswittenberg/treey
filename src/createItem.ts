@@ -1,6 +1,6 @@
 import { Item, ItemEventType, ItemEvent, ItemEvents, State } from "./types/Item"
 import toArray from "./utils/toArray"
-//import generateHash from "./generateHash"
+//import generateHash from "./crypto/generateHash"
 
 const reduceState = (state: State, event: ItemEvent) : State => {
 
