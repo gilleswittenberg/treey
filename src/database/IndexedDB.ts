@@ -2,7 +2,6 @@ import DBItem, { DBItems } from "../types/DBItem"
 import { UUID } from "../types"
 
 type IDBDatabaseEvent = Event & { target: { result: IDBDatabase } }
-//type IDBDatabaseEventItem = Event & { target: { result: DBItem } }
 type IDBDatabaseEventItem = Event & { target: EventTarget | null }
 type IDBDatabaseEventItems = Event & { target: EventTarget | null }
 

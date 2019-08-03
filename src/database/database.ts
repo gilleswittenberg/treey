@@ -8,12 +8,12 @@ import { updateItem } from "../createItem"
 import { Item, ItemEventType, ItemEvent, ItemEvents } from "../Item"
 import toArray from "../utils/toArray"
 
-const create = async (item: Item) => {
+const create = async (item: Item, isRoot = false) => {
   const name = createUUID()
   const id = { protocol: "self", name }
   const itemEventIdentityAdd = createEvent(ItemEventType.IdentityAdd, { id })
   const updatedItem = updateItem(item, [itemEventIdentityAdd])
-  const dbItem = { id: name, ...updatedItem }
+  const dbItem = { id: name, isRoot, ...updatedItem }
   return isBrowser ? await IndexedDB.addItem(dbItem) : await MemoryDB.create(dbItem)
 }
 
