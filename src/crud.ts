@@ -11,15 +11,15 @@ const create = async (isRoot = false) : Promise<Item> => {
   return await database.create(item, isRoot)
 }
 
-const read = async (id: Id) : Promise<Item> => {
+const read = async (id: Id) : Promise<Item | undefined> => {
   return database.read(id)
 }
 
-const update = async (id: Id, events: ItemEvent | ItemEvents) : Promise<Item> => {
+const update = async (id: Id, events: ItemEvent | ItemEvents) : Promise<Item | undefined> => {
   return database.update(id, toArray(events))
 }
 
-const del = async (id: Id) : Promise<Item> => {
+const del = async (id: Id) : Promise<Item | undefined> => {
   return await database.del(id)
 }
 
