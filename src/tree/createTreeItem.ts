@@ -3,7 +3,11 @@ import Item, { Items } from "../types/Item"
 import TreeItem from "../types/TreeItem"
 
 const findItem = (id: Id, items: Items) : Item | undefined => {
-  return items.find(item => item.state.ids && item.state.ids.includes(id))
+  return items.find(item => {
+    const id0 = item.state.ids && item.state.ids[0]
+    if (id0 == null) return false
+    return id0.name === id.name
+  })
 }
 
 const createTreeItem = (item: Item, items: Items) : TreeItem => {

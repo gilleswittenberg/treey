@@ -27,7 +27,7 @@ const update = async (id: Id, events: ItemEvent | ItemEvents) => {
   const item = await read(id)
   if (item == null) return undefined
   const updatedItem = updateItem(item, toArray(events))
-  const dbItem = { id: item.id, ...updatedItem }
+  const dbItem = { id: item.id, isRoot: item.isRoot, ...updatedItem }
   return isBrowser ? await IndexedDB.putItem(dbItem) : await MemoryDB.update(dbItem)
 }
 

@@ -37,8 +37,7 @@ const initIndexedDB = async () => {
         const request = event.target as IDBRequest
         const db = request.result
 
-        const objectStore = db.createObjectStore("items", { autoIncrement: true })
-        objectStore.createIndex("id", "id", { unique: true })
+        db.createObjectStore("items", { keyPath: "id" })
       }
     }
   })
@@ -64,6 +63,7 @@ const getItem = async (id: UUID) => {
     request.onsuccess = (event: IDBDatabaseEventItem) => {
       if (event.target == null) return reject()
       const item = (event.target as IDBRequest).result
+      if (item == null) return reject()
       resolve(item)
     }
   })
@@ -96,7 +96,6 @@ const addItem = async (item: DBItem) => {
       reject()
     }
     request.onsuccess = event => {
-      console.log(event)
       resolve(item)
     }
   })

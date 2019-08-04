@@ -13,32 +13,43 @@ export const init = async () : Promise<TreeItem> => {
 }
 
 export const createAndAdd = async (data: Data, parentId: Id) => {
+
   const item = await crud.create()
   const id = item.state.ids && item.state.ids[0]
   if (!id) return await init()
+
   const eventDataSet = createEvent(ItemEventType.DataSet, { data })
-  const updatedItem = await crud.update(id, eventDataSet)
+  await crud.update(id, eventDataSet)
+
   const eventRelationAdd = createEvent(ItemEventType.RelationAdd, { id })
-  const updatedParent = await crud.update(parentId, eventRelationAdd)
+  await crud.update(parentId, eventRelationAdd)
+
   return await init()
 }
 
 export const update = async (id: Id, data: Data) => {
+
   const event = createEvent(ItemEventType.DataSet, { data })
-  const updatedItem = await crud.update(id, event)
+  await crud.update(id, event)
+
   return await init()
 }
 
 export const remove = async (id: Id, parentId: Id, index: Index) => {
+
   const event = createEvent(ItemEventType.RelationRemove, { id, index })
-  const updatedItem = await crud.update(parentId, event)
+  await crud.update(parentId, event)
+
   return await init()
 }
 
 export const move = async (id: Id, oldParentId: Id, oldIndex: Index, parentId: Id, index: Index) => {
+
   const eventRelationRemove = createEvent(ItemEventType.RelationRemove, { id, index: oldIndex })
-  const updatedOldParent = await crud.update(oldParentId, eventRelationRemove)
+  await crud.update(oldParentId, eventRelationRemove)
+
   const eventRelationAdd = createEvent(ItemEventType.RelationAdd, { id, index })
-  const updatedParent = await crud.update(parentId, eventRelationAdd)
+  await crud.update(parentId, eventRelationAdd)
+
   return await init()
 }

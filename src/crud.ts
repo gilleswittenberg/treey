@@ -12,11 +12,11 @@ const create = async (isRoot = false) : Promise<Item> => {
 }
 
 const read = async (id: Id) : Promise<Item | undefined> => {
-  return database.read(id)
+  return await database.read(id)
 }
 
 const update = async (id: Id, events: ItemEvent | ItemEvents) : Promise<Item | undefined> => {
-  return database.update(id, toArray(events))
+  return await database.update(id, toArray(events))
 }
 
 const del = async (id: Id) : Promise<Item | undefined> => {
