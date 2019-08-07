@@ -5,4 +5,5 @@ export default interface TreeItem extends Item {
   relations: TreeItems
 }
 
+export type OptionalTreeItem = TreeItem | undefined
 export type TreeItems = TreeItem[]
