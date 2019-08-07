@@ -10,7 +10,7 @@ import toArray from "../utils/toArray"
 
 const create = async (item: Item, isRoot = false) => {
   const name = createUUID()
-  const id = { protocol: "self", name }
+  const id = { name }
   const itemEventIdentityAdd = createEvent(ItemEventType.IdentityAdd, { id })
   const updatedItem = updateItem(item, [itemEventIdentityAdd])
   const dbItem = { id: name, isRoot, ...updatedItem }

@@ -14,7 +14,7 @@ test("Event Create", () => {
 })
 
 test("Event IdentityAdd", () => {
-  const id = { protocol: "self", name: "name"}
+  const id = { name: "name"}
   const event = createEvent(ItemEventType.IdentityAdd, { id })
   expect(event.payload.id).toEqual(id)
 })

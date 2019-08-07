@@ -1,6 +1,6 @@
 export interface Id {
   protocol?: string,
-  name?: string
+  name: string
 }
 export type Ids = Id[]
 export type UUID = string
