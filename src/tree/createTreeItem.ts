@@ -1,19 +1,18 @@
 import { Id } from "../types/types"
-import Item, { Items } from "../types/Item"
+import Item, { OptionalItem, Items } from "../types/Item"
 import TreeItem from "../types/TreeItem"
 
-const findItem = (id: Id, items: Items) : Item | undefined => {
+const findItem = (id: Id, items: Items) : OptionalItem => {
   return items.find(item => {
-    const id0 = item.state.ids && item.state.ids[0]
-    if (id0 == null) return false
-    return id0.name === id.name
+    const ids = item.state.ids || []
+    return ids.find(itemId => itemId.name === id.name) !== undefined
   })
 }
 
 const createTreeItem = (item: Item, items: Items) : TreeItem => {
   const relations = item.state.relations || []
   const itemRelations = relations.map(relation => findItem(relation, items)).filter(item => item !== undefined) as Items
-  const treeItemRelations = itemRelations.filter(item => item !== undefined).map(item => createTreeItem(item, items))
+  const treeItemRelations = itemRelations.map(item => createTreeItem(item, items))
   return { ...item, relations: treeItemRelations }
 }
 
