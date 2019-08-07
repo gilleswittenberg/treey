@@ -12,6 +12,10 @@ export const init = async () : Promise<TreeItem> => {
   return createTreeItem(root, items)
 }
 
+export const read = async (id: Id) : Promise<TreeItem> => {
+  return await crud.read(id) as TreeItem
+}
+
 export const createAndAdd = async (data: Data, parentId: Id) => {
 
   const item = await crud.create()
