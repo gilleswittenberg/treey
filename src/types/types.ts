@@ -1,6 +1,8 @@
+export type Name = string
+export type FullName = string
 export interface Id {
   protocol?: string,
-  name: string
+  name: Name
 }
 export type Ids = Id[]
 export type UUID = string

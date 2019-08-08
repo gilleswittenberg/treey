@@ -1,6 +1,7 @@
 import { Data, Id, Index } from "./types/types"
 import { ItemEventType } from "./types/Item"
 import TreeItem, { OptionalTreeItem } from "./types/TreeItem"
+import DBItem from "./types/DBItem"
 import crud from "./crud"
 import createEvent from "./createEvent"
 import createTreeItem from "./tree/createTreeItem"
@@ -8,7 +9,7 @@ import createTreeItem from "./tree/createTreeItem"
 export const init = async () : Promise<OptionalTreeItem> => {
   try {
     const items = await crud.index()
-    const rootItem = items.find(item => (item as TreeItem).isRoot === true)
+    const rootItem = items.find(item => (item as DBItem).isRoot === true)
     const root = rootItem != null ? rootItem : await crud.create(true)
     return createTreeItem(root, items)
   } catch (err) {
