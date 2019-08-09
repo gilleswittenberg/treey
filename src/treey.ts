@@ -20,7 +20,10 @@ export const init = async () : Promise<OptionalTreeItem> => {
 
 export const read = async (id: Id) : Promise<OptionalTreeItem> => {
   try {
-    return await crud.read(id) as TreeItem
+    const item = await crud.read(id)
+    if (item === undefined) return undefined
+    const items = await crud.index()
+    return createTreeItem(item, items)
   } catch (err) {
     console.error(err)
     return undefined
