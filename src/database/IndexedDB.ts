@@ -44,17 +44,20 @@ const initIndexedDB = async () => {
 }
 
 let database: IDBDatabase
-(async () => {
+const getDatabase = async () : Promise<IDBDatabase> => {
+  if (database !== undefined) return database
   database = await initIndexedDB()
-})()
+  return database
+}
 
 
 // API
 
 const getItem = async (id: UUID) => {
+  const database = await getDatabase()
+  const objectStore = database.transaction("items", "readwrite").objectStore("items")
   return new Promise<DBItem>((resolve, reject) => {
 
-    const objectStore = database.transaction("items", "readwrite").objectStore("items")
     const request = objectStore.get(id)
     request.onerror = event => {
       console.error(event)
@@ -70,9 +73,10 @@ const getItem = async (id: UUID) => {
 }
 
 const getItems = async () => {
+  const database = await getDatabase()
+  const objectStore = database.transaction("items", "readwrite").objectStore("items")
   return new Promise<DBItems>((resolve, reject) => {
 
-    const objectStore = database.transaction("items", "readwrite").objectStore("items")
     const request = objectStore.getAll()
     request.onerror = event => {
       console.error(event)
@@ -87,9 +91,10 @@ const getItems = async () => {
 }
 
 const addItem = async (item: DBItem) => {
+  const database = await getDatabase()
+  const objectStore = database.transaction("items", "readwrite").objectStore("items")
   return new Promise<DBItem>((resolve, reject) => {
 
-    const objectStore = database.transaction("items", "readwrite").objectStore("items")
     const request = objectStore.add(item)
     request.onerror = event => {
       console.error(event)
@@ -102,9 +107,10 @@ const addItem = async (item: DBItem) => {
 }
 
 const putItem = async (item: DBItem) => {
+  const database = await getDatabase()
+  const objectStore = database.transaction("items", "readwrite").objectStore("items")
   return new Promise<DBItem>((resolve, reject) => {
 
-    const objectStore = database.transaction("items", "readwrite").objectStore("items")
     const request = objectStore.put(item)
     request.onerror = event => {
       console.error(event)
@@ -118,9 +124,10 @@ const putItem = async (item: DBItem) => {
 }
 
 const clear = async () => {
+  const database = await getDatabase()
+  const objectStore = database.transaction("items", "readwrite").objectStore("items")
   return new Promise<DBItems>((resolve, reject) => {
 
-    const objectStore = database.transaction("items", "readwrite").objectStore("items")
     const request = objectStore.clear()
     request.onerror = event => {
       console.error(event)
