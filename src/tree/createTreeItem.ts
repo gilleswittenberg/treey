@@ -3,9 +3,11 @@ import Item, { OptionalItem, Items, ItemEventType } from "../types/Item"
 import TreeItem from "../types/TreeItem"
 import last from "../utils/last"
 import createFullName from "../createFullName"
+import createUnknownTreeItem from "../createUnknownTreeItem"
 
-const isItem = (id: Id, item: Item) => {
+const isItem = (id: Id, item: Item) : boolean => {
   const ids = item.state.ids || []
+  // @TODO: check id.protocol
   return ids.find(itemId => itemId.name === id.name) !== undefined
 }
 
@@ -27,13 +29,15 @@ const itemIsBurned = (item: Item) : boolean => {
 
 const createTreeItem = (item: Item, items: Items) : TreeItem => {
   const relations = item.state.relations || []
-  const itemRelations = relations.map(relation => findItem(relation, items)).filter(item => item !== undefined) as Items
-  const treeItemRelations = itemRelations.map(item => createTreeItem(item, items))
+  const itemRelations = relations.map(id => {
+    const item = findItem(id, items)
+    return item != null ? createTreeItem(item, items) : createUnknownTreeItem(id)
+  })
   const name = itemName(item)
   const isBurned = itemIsBurned(item)
   const isKnown = true
   const isCyclic = false
-  return { ...item, relations: treeItemRelations, name, isKnown, isCyclic, isBurned }
+  return { ...item, relations: itemRelations, name, isKnown, isCyclic, isBurned }
 }
 
 export default createTreeItem
