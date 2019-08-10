@@ -15,10 +15,15 @@ const findItem = (id: Id, items: Items) : OptionalItem => {
   return items.find(item => isItem(id, item))
 }
 
-const itemName = (item: Item) : FullName => {
+const getItemId = (item: Item) : Id | undefined => {
   const ids = item.state.ids
   const lastId = ids && last(ids)
-  return lastId ? createFullName(lastId) : "Unknown"
+  return lastId
+}
+
+const itemName = (item: Item) : FullName => {
+  const id = getItemId(item)
+  return id ? createFullName(id) : "Unknown"
 }
 
 const itemIsBurned = (item: Item) : boolean => {
