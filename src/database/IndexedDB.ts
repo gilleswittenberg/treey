@@ -117,7 +117,6 @@ const putItem = async (item: DBItem) => {
       reject()
     }
     request.onsuccess = event => {
-      console.log(event)
       resolve(item)
     }
   })
