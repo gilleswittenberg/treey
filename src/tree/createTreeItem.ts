@@ -27,7 +27,7 @@ const itemIsBurned = (item: Item) : boolean => {
   return lastEvent.type === ItemEventType.Burn
 }
 
-const createTreeItem = (item: Item, items: Items) : TreeItem => {
+const createTreeItem = (item: Item, items: Items = []) : TreeItem => {
   const relations = item.state.relations || []
   const itemRelations = relations.map(id => {
     const item = findItem(id, items)
