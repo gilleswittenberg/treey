@@ -27,16 +27,17 @@ const itemIsBurned = (item: Item) : boolean => {
   return lastEvent.type === ItemEventType.Burn
 }
 
-const createTreeItem = (item: Item, items: Items = []) : TreeItem => {
+const createTreeItem = (item: Item, items: Items = [], parentItems: Items = [], isCyclic = false) : TreeItem => {
   const relations = item.state.relations || []
-  const itemRelations = relations.map(id => {
+  parentItems.push(item)
+  const itemRelations = isCyclic ? [] : relations.map(id => {
     const item = findItem(id, items)
-    return item != null ? createTreeItem(item, items) : createUnknownTreeItem(id)
+    const isCyclic = findItem(id, parentItems) !== undefined
+    return item != null ? createTreeItem(item, items, parentItems, isCyclic) : createUnknownTreeItem(id)
   })
   const name = itemName(item)
   const isBurned = itemIsBurned(item)
   const isKnown = true
-  const isCyclic = false
   return { ...item, relations: itemRelations, name, isKnown, isCyclic, isBurned }
 }
 

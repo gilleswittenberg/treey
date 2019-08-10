@@ -48,3 +48,15 @@ test("isKnown", () => {
   expect(treeItem.relations[1].name).toBe("@r1")
   expect(treeItem.relations[1].isKnown).toBe(true)
 })
+
+test("isCyclic", () => {
+  const eventCreate = createEvent(ItemEventType.Create)
+  const eventIdentityAdd = createEvent(ItemEventType.IdentityAdd, { id: { name: "a" } })
+  const eventRelationAdd = createEvent(ItemEventType.RelationAdd, { id: { name: "a" } })
+  const item = createItem([eventCreate, eventIdentityAdd, eventRelationAdd])
+  const treeItem = createTreeItem(item, [item])
+  expect(treeItem.relations.length).toBe(1)
+  expect(treeItem.relations[0].name).toBe("@a")
+  expect(treeItem.relations[0].isCyclic).toBe(true)
+  expect(treeItem.relations[0].relations.length).toBe(0)
+})
