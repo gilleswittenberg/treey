@@ -1,8 +1,8 @@
 export interface ItemEventPayload {
-  state?: State,
-  id?: Id,
-  schema?: Schema,
-  data?: Data,
+  state?: State
+  id?: Id
+  schema?: Schema
+  data?: Data
   index?: Index
 }
 
@@ -19,23 +19,23 @@ export enum ItemEventType {
 }
 
 export interface ItemEvent {
-  type: ItemEventType,
-  datetime: Date,
+  type: ItemEventType
+  datetime: Date
   payload?: ItemEventPayload
 }
 export type ItemEvents = ItemEvent[]
 
 export interface State {
-  ids?: Ids,
-  schema?: Schema,
-  data?: Data,
+  ids?: Ids
+  schema?: Schema
+  data?: Data
   relations?: Ids
 }
 
 export default interface Item {
-  events: ItemEvents,
-  state: State,
-  //hashes: Hashes,
+  events: ItemEvents
+  state: State
+  //hashes: Hashes
   //hash: Hash
 }
 export type Items = Item[]
