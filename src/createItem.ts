@@ -48,7 +48,7 @@ const reduceState = (state: State, event: ItemEvent) : State => {
     const ids = (state && state.relations) || []
     // @TODO: payload.index
     const newIds = ids.filter(i => i.protocol !== id.protocol && i.name !== id.name)
-    return { ...state, ids: newIds }
+    return { ...state, relations: newIds }
   }
   case ItemEventType.Prune: {
     return state
