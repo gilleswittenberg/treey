@@ -23,6 +23,12 @@ describe("parseFullName", () => {
     expect(id).toEqual({ name: "joe" })
   })
 
+  test("UUID", () => {
+    const fullName = "@1469fee4-9e59-4fcd-a1f3-109b3a386bc1"
+    const id = parseFullName(fullName)
+    expect(id).toEqual({ name: "1469fee4-9e59-4fcd-a1f3-109b3a386bc1" })
+  })
+
   test("protocol", () => {
     const fullName = "$treey@joe"
     const id = parseFullName(fullName)

@@ -11,12 +11,12 @@ export default createFullName
 export const parseFullName = (name: FullName) : Id | undefined => {
 
   // check for eg. "@joe"
-  const nameOnlyRegExp = /^@([A-Za-z0-9]+)$/
+  const nameOnlyRegExp = /^@([A-Za-z0-9-]+)$/
   const nameOnlyMatch = name.match(nameOnlyRegExp)
   if (nameOnlyMatch != null) return { name: nameOnlyMatch[1] }
 
   // check for eg. "$protocol@joe"
-  const protocolAndNameRegExp = /^\$([A-Za-z0-9]+)@([A-Za-z0-9]+)$/
+  const protocolAndNameRegExp = /^\$([A-Za-z0-9-]+)@([A-Za-z0-9-]+)$/
   const protocolAndNameMatch = name.match(protocolAndNameRegExp)
   if (protocolAndNameMatch != null) return { protocol: protocolAndNameMatch[1], name: protocolAndNameMatch[2] }
 
