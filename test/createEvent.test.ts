@@ -16,7 +16,7 @@ test("Event Create", () => {
 test("Event IdentityAdd", () => {
   const id = { name: "name"}
   const event = createEvent(ItemEventType.IdentityAdd, { id })
-  expect(event.payload.id).toEqual(id)
+  expect(event.payload!.id).toEqual(id)
 })
 
 test("Event IdentityAdd invalid payload", () => {

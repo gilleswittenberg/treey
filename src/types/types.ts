@@ -10,5 +10,5 @@ export type Hash = string
 export type Hashes = Hash[]
 
 export type Index = number
-export type Data = unknown
+export type Data = any
 export type Schema = Record<string, unknown>

@@ -12,8 +12,8 @@ test("create", async () => {
   expect(item.events.length).toBe(2)
   expect(item.events[0].type).toBe(ItemEventType.Create)
   expect(item.events[1].type).toBe(ItemEventType.IdentityAdd)
-  expect(item.state.ids[0].name).toBe(item.id)
-  expect(item.state.ids[0].protocol).toBeUndefined()
+  expect(item.state.ids![0].name).toBe(item.id)
+  expect(item.state.ids![0].protocol).toBeUndefined()
 })
 
 test("read", async () => {
@@ -28,15 +28,15 @@ test("update", async () => {
   const id = { name: newItem.id }
   const event = createEvent(ItemEventType.DataSet, { data: "Lorum Ipsum" })
   const item = await crud.update(id, [event])
-  expect(item.events.length).toBe(3)
-  expect(item.state.data).toBe("Lorum Ipsum")
+  expect(item!.events!.length).toBe(3)
+  expect(item!.state!.data).toBe("Lorum Ipsum")
 })
 
 test("del", async () => {
   const newItem = await crud.create() as DBItem
   const id = { name: newItem.id }
   const item = await crud.del(id)
-  expect(item.events[2].type).toBe(ItemEventType.Burn)
+  expect(item!.events![2].type).toBe(ItemEventType.Burn)
 })
 
 test("index", async () => {
