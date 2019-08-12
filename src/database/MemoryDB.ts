@@ -8,7 +8,7 @@ const create = async (item: DBItem) : Promise<DBItem> => {
   return item
 }
 
-const read = async (id: UUID) : Promise<DBItem | undefined> => {
+const read = async (id: UUID) : Promise<Optional<DBItem>> => {
   const item = store[id]
   return item != null ? item : undefined
 }

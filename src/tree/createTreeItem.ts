@@ -14,7 +14,7 @@ const findItem = (id: Id, items: Items) : Optional<Item> => {
   return items.find(item => isItem(id, item))
 }
 
-const getItemId = (item: Item) : Id | undefined => {
+const getItemId = (item: Item) : Optional<Id> => {
   const ids = item.state.ids
   const lastId = ids && last(ids)
   return lastId
@@ -37,7 +37,7 @@ const createTreeItem = (item: Item, items: Items = [], parentItems: Items = [], 
   const itemRelations = isCyclic ? [] : relations.map(id => {
     const item = findItem(id, items)
     const isCyclic = findItem(id, parentItems) !== undefined
-    return item != null ? createTreeItem(item, items, parentItems, isCyclic) : createUnknownTreeItem(id)
+    return item !== undefined ? createTreeItem(item, items, parentItems, isCyclic) : createUnknownTreeItem(id)
   })
   const name = itemName(item)
   const isBurned = itemIsBurned(item)
