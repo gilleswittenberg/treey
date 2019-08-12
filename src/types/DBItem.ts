@@ -1,8 +1,8 @@
 import Item from "./Item"
 
 export default interface DBItem extends Item {
-  isRoot?: boolean
-  id: UUID
+  readonly isRoot?: boolean
+  readonly id: UUID
 }
 
 export type DBItems = DBItem[]

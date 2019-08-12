@@ -1,9 +1,9 @@
 export interface ItemEventPayload {
-  state?: State
-  id?: Id
-  schema?: Schema
-  data?: Data
-  index?: Index
+  readonly state?: State
+  readonly id?: Id
+  readonly schema?: Schema
+  readonly data?: Data
+  readonly index?: Index
 }
 
 export enum ItemEventType {
@@ -19,22 +19,22 @@ export enum ItemEventType {
 }
 
 export interface ItemEvent {
-  type: ItemEventType
-  datetime: Date
-  payload?: ItemEventPayload
+  readonly type: ItemEventType
+  readonly datetime: Date
+  readonly payload?: ItemEventPayload
 }
 export type ItemEvents = ItemEvent[]
 
 export interface State {
-  ids?: Ids
-  schema?: Schema
-  data?: Data
-  relations?: Ids
+  readonly ids?: Ids
+  readonly schema?: Schema
+  readonly data?: Data
+  readonly relations?: Ids
 }
 
 export default interface Item {
-  events: ItemEvents
-  state: State
+  readonly events: ItemEvents
+  readonly state: State
   //hashes: Hashes
   //hash: Hash
 }

@@ -30,10 +30,8 @@ const validateEventPayload = (type: ItemEventType, payload?: ItemEventPayload) :
 
 const createEvent = (type: ItemEventType, payload?: ItemEventPayload) : ItemEvent => {
   const datetime = new Date()
-  const event: ItemEvent = { type, datetime }
   const validatedPayload = validateEventPayload(type, payload)
-  if (validatedPayload != null) event.payload = validatedPayload
-  return event
+  return validatedPayload != null ? { type, datetime, payload: validatedPayload } : { type, datetime }
 }
 
 export default createEvent
