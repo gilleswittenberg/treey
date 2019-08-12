@@ -1,5 +1,4 @@
 import DBItem, { DBItems } from "../types/DBItem"
-import { UUID } from "../types/types"
 
 type IDBDatabaseEventItem = Event & { target: EventTarget | null }
 type IDBDatabaseEventItems = Event & { target: EventTarget | null }

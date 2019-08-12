@@ -1,5 +1,3 @@
-import { Id, Ids, Index, Schema, Data /*, Hash, Hashes, */ } from "./types"
-
 export interface ItemEventPayload {
   state?: State,
   id?: Id,
@@ -40,5 +38,4 @@ export default interface Item {
   //hashes: Hashes,
   //hash: Hash
 }
-export type OptionalItem = Item | undefined
 export type Items = Item[]

@@ -1,4 +1,3 @@
-import { Id } from "./types/types"
 import TreeItem from "./types/TreeItem"
 import createFullName from "./createFullName"
 

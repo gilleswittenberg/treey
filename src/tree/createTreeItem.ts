@@ -1,5 +1,4 @@
-import { Id, FullName } from "../types/types"
-import Item, { OptionalItem, Items, ItemEventType } from "../types/Item"
+import Item, { Items, ItemEventType } from "../types/Item"
 import TreeItem from "../types/TreeItem"
 import last from "../utils/last"
 import createFullName from "../createFullName"
@@ -11,7 +10,7 @@ const isItem = (id: Id, item: Item) : boolean => {
   return ids.find(itemId => itemId.name === id.name) !== undefined
 }
 
-const findItem = (id: Id, items: Items) : OptionalItem => {
+const findItem = (id: Id, items: Items) : Optional<Item> => {
   return items.find(item => isItem(id, item))
 }
 

@@ -1,7 +1,6 @@
 import isBrowser from "../utils/isBrowser"
 import IndexedDB from "./IndexedDB"
 import MemoryDB from "./MemoryDB"
-import { Id } from "../types/types"
 import createUUID from "../crypto/createUUID"
 import createEvent from "../createEvent"
 import { updateItem } from "../createItem"

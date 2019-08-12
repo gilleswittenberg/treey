@@ -1,5 +1,4 @@
-import { Id } from "./types/types"
-import Item, { OptionalItem, Items, ItemEvent, ItemEvents, ItemEventType } from "./types/Item"
+import Item, { Items, ItemEvent, ItemEvents, ItemEventType } from "./types/Item"
 import createEvent from "./createEvent"
 import createItem from "./createItem"
 import database from "./database/database"
@@ -11,15 +10,15 @@ const create = async (isRoot = false) : Promise<Item> => {
   return await database.create(item, isRoot)
 }
 
-const read = async (id: Id) : Promise<OptionalItem> => {
+const read = async (id: Id) : Promise<Optional<Item>> => {
   return await database.read(id)
 }
 
-const update = async (id: Id, events: ItemEvent | ItemEvents) : Promise<OptionalItem> => {
+const update = async (id: Id, events: ItemEvent | ItemEvents) : Promise<Optional<Item>> => {
   return await database.update(id, toArray(events))
 }
 
-const del = async (id: Id) : Promise<OptionalItem> => {
+const del = async (id: Id) : Promise<Optional<Item>> => {
   return await database.del(id)
 }
 

@@ -1,4 +1,3 @@
-import { UUID } from "../types/types"
 import DBItem, { DBItems } from "../types/DBItem"
 
 const store: Record<UUID, DBItem> = {}

@@ -1,4 +1,3 @@
-import { Hash } from "../types/types"
 import * as multiformat from "multihashes"
 
 const generateHash = (obj: Record<string, unknown>) : Hash => {
