@@ -1,5 +1,3 @@
-import DBItem, { DBItems } from "../types/DBItem"
-
 type IDBDatabaseEventItem = Event & { target: EventTarget | null }
 type IDBDatabaseEventItems = Event & { target: EventTarget | null }
 

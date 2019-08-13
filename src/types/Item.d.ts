@@ -1,4 +1,15 @@
-export interface ItemEventPayload {
+declare type ItemEventType =
+  "Create" |
+  "IdentityAdd" |
+  "IdentityRemove" |
+  "Burn" |
+  "SchemaSet" |
+  "DataSet" |
+  "RelationAdd" |
+  "RelationRemove" |
+  "Prune"
+
+declare interface ItemEventPayload {
   readonly state?: State
   readonly id?: Id
   readonly schema?: Schema
@@ -6,36 +17,25 @@ export interface ItemEventPayload {
   readonly index?: Index
 }
 
-export enum ItemEventType {
-  Create,
-  IdentityAdd,
-  IdentityRemove,
-  Burn,
-  SchemaSet,
-  DataSet,
-  RelationAdd,
-  RelationRemove,
-  Prune
-}
-
-export interface ItemEvent {
+declare interface ItemEvent {
   readonly type: ItemEventType
   readonly datetime: Date
   readonly payload?: ItemEventPayload
 }
-export type ItemEvents = ItemEvent[]
+declare type ItemEvents = ItemEvent[]
 
-export interface State {
+declare interface State {
   readonly ids?: Ids
   readonly schema?: Schema
   readonly data?: Data
   readonly relations?: Ids
 }
 
-export default interface Item {
+declare interface Item {
   readonly events: ItemEvents
   readonly state: State
   //hashes: Hashes
   //hash: Hash
 }
-export type Items = Item[]
+declare type OptionalItem = Optional<Item>
+declare type Items = Item[]

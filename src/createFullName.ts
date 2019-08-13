@@ -6,7 +6,7 @@ const createFullName = (id: Id) : FullName => {
 export default createFullName
 
 // @TODO: Unicode + escaping $, @
-export const parseFullName = (name: FullName) : Optional<Id> => {
+export const parseFullName = (name: FullName) : OptionalId => {
 
   // check for eg. "@joe"
   const nameOnlyRegExp = /^@([A-Za-z0-9-]+)$/

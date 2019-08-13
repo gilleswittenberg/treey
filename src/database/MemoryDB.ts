@@ -1,5 +1,3 @@
-import DBItem, { DBItems } from "../types/DBItem"
-
 const store: Record<UUID, DBItem> = {}
 
 const create = async (item: DBItem) : Promise<DBItem> => {
@@ -8,7 +6,7 @@ const create = async (item: DBItem) : Promise<DBItem> => {
   return item
 }
 
-const read = async (id: UUID) : Promise<Optional<DBItem>> => {
+const read = async (id: UUID) : Promise<OptionalDBItem> => {
   const item = store[id]
   return item != null ? item : undefined
 }

@@ -1,5 +1,3 @@
-import Item, { Items, ItemEventType } from "../types/Item"
-import TreeItem from "../types/TreeItem"
 import last from "../utils/last"
 import createFullName from "../createFullName"
 import createUnknownTreeItem from "../createUnknownTreeItem"
@@ -10,11 +8,11 @@ const isItem = (id: Id, item: Item) : boolean => {
   return ids.find(itemId => itemId.name === id.name) !== undefined
 }
 
-const findItem = (id: Id, items: Items) : Optional<Item> => {
+const findItem = (id: Id, items: Items) : OptionalItem => {
   return items.find(item => isItem(id, item))
 }
 
-const getItemId = (item: Item) : Optional<Id> => {
+const getItemId = (item: Item) : OptionalId => {
   const ids = item.state.ids
   const lastId = ids && last(ids)
   return lastId
@@ -28,7 +26,7 @@ const itemName = (item: Item) : FullName => {
 const itemIsBurned = (item: Item) : boolean => {
   const lastEvent = last(item.events)
   if (lastEvent === undefined) return false
-  return lastEvent.type === ItemEventType.Burn
+  return lastEvent.type === "Burn"
 }
 
 const createTreeItem = (item: Item, items: Items = [], parentItems: Items = [], isCyclic = false) : TreeItem => {

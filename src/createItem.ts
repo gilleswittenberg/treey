@@ -1,39 +1,38 @@
-import Item, { ItemEventType, ItemEvent, ItemEvents, State } from "./types/Item"
 import toArray from "./utils/toArray"
 //import generateHash from "./crypto/generateHash"
 
 const reduceState = (state: State, event: ItemEvent) : State => {
 
   switch (event.type) {
-  case ItemEventType.Create: {
+  case "Create": {
     return {}
   }
-  case ItemEventType.IdentityAdd: {
+  case "IdentityAdd": {
     const id = event.payload ? event.payload.id : null
     if (id == null) return state
     const ids = state && state.ids ? state.ids.concat(id) : [id]
     return { ...state, ids }
   }
-  case ItemEventType.IdentityRemove: {
+  case "IdentityRemove": {
     const id = event.payload ? event.payload.id : null
     if (id == null) return state
     const ids = (state && state.ids) || []
     const newIds = ids.filter(i => i.protocol !== id.protocol && i.name !== id.name)
     return { ...state, ids: newIds }
   }
-  case ItemEventType.Burn: {
+  case "Burn": {
     return state
   }
-  case ItemEventType.SchemaSet: {
+  case "SchemaSet": {
     const schema = event.payload ? event.payload.schema : null
     if (schema == null) return state
     return { ...state, schema }
   }
-  case ItemEventType.DataSet: {
+  case "DataSet": {
     const data = event.payload ? event.payload.data : null
     return { ...state, data }
   }
-  case ItemEventType.RelationAdd: {
+  case "RelationAdd": {
     const id = event.payload ? event.payload.id : null
     if (id == null) return state
     const index = event.payload && event.payload.index
@@ -42,7 +41,7 @@ const reduceState = (state: State, event: ItemEvent) : State => {
     const newIds = shouldInsert ? ids.splice(index as number, 0, id) : ids.concat(id)
     return { ...state, relations: newIds }
   }
-  case ItemEventType.RelationRemove: {
+  case "RelationRemove": {
     const id = event.payload ? event.payload.id : null
     if (id == null) return state
     const ids = (state && state.relations) || []
@@ -50,7 +49,7 @@ const reduceState = (state: State, event: ItemEvent) : State => {
     const newIds = ids.filter(i => i.protocol !== id.protocol && i.name !== id.name)
     return { ...state, relations: newIds }
   }
-  case ItemEventType.Prune: {
+  case "Prune": {
     return state
   }
   }
@@ -60,9 +59,9 @@ const reduceState = (state: State, event: ItemEvent) : State => {
 
 const reduceItem = (item: Item | null, event: ItemEvent) : Item => {
 
-  if (item == null && event.type !== ItemEventType.Create) throw new Error ("Item can not be null")
-  if (item != null && event.type === ItemEventType.Create) throw new Error ("First ItemEvent should be Create")
-  if (item != null && item.events[item.events.length - 1].type === ItemEventType.Burn) throw new Error ("Can not add additional event after Burn event")
+  if (item == null && event.type !== "Create") throw new Error ("Item can not be null")
+  if (item != null && event.type === "Create") throw new Error ("First ItemEvent should be Create")
+  if (item != null && item.events[item.events.length - 1].type === "Burn") throw new Error ("Can not add additional event after Burn event")
 
   const currentEvents = item != null ? item.events : []
   const events = currentEvents.concat(event)

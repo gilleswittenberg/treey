@@ -1,4 +1,3 @@
-import TreeItem from "./types/TreeItem"
 import createFullName from "./createFullName"
 
 const createUnknownTreeItem = (id: Id) : TreeItem => {

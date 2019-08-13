@@ -1,27 +1,25 @@
-import { ItemEventType, ItemEventPayload, ItemEvent } from "./types/Item"
-
 const validateEventPayload = (type: ItemEventType, payload?: ItemEventPayload) : ItemEventPayload | null => {
 
   if (payload == null) return null
 
   switch (type) {
-  case ItemEventType.Create:
+  case "Create":
     return null
-  case ItemEventType.IdentityAdd:
+  case "IdentityAdd":
     return payload.id != null ? { id: payload.id } : null
-  case ItemEventType.IdentityRemove:
+  case "IdentityRemove":
     return payload.id != null ? { id: payload.id } : null
-  case ItemEventType.Burn:
+  case "Burn":
     return null
-  case ItemEventType.SchemaSet:
+  case "SchemaSet":
     return payload.schema != null ? { schema: payload.schema } : null
-  case ItemEventType.DataSet:
+  case "DataSet":
     return payload.data != null ? { data: payload.data } : null
-  case ItemEventType.RelationAdd:
+  case "RelationAdd":
     return payload.id != null ? { id: payload.id, index: payload.index } : null
-  case ItemEventType.RelationRemove:
+  case "RelationRemove":
     return payload.id != null ? { id: payload.id, index: payload.index } : null
-  case ItemEventType.Prune:
+  case "Prune":
     return payload.state != null ? { state: payload.state } : null
   }
 

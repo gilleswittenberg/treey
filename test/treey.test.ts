@@ -1,7 +1,6 @@
 import { read } from "../src/treey"
 import crud from "../src/crud"
 import database from "../src/database/database"
-import DBItem from "../src/types/DBItem"
 
 beforeEach(async () => await database.clear())
 

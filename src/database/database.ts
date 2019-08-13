@@ -4,12 +4,11 @@ import MemoryDB from "./MemoryDB"
 import createUUID from "../crypto/createUUID"
 import createEvent from "../createEvent"
 import { updateItem } from "../createItem"
-import Item, { ItemEventType, ItemEvents } from "../types/Item"
 
 const create = async (item: Item, isRoot = false) => {
   const name = createUUID()
   const id = { name }
-  const itemEventIdentityAdd = createEvent(ItemEventType.IdentityAdd, { id })
+  const itemEventIdentityAdd = createEvent("IdentityAdd", { id })
   const updatedItem = updateItem(item, itemEventIdentityAdd)
   const dbItem = { id: name, isRoot, ...updatedItem }
   return isBrowser ? await IndexedDB.addItem(dbItem) : await MemoryDB.create(dbItem)
@@ -30,7 +29,7 @@ const update = async (id: Id, events: ItemEvents) => {
 }
 
 const del = async (id: Id) => {
-  const itemEventBurn = createEvent(ItemEventType.Burn)
+  const itemEventBurn = createEvent("Burn")
   return await update(id, [itemEventBurn])
 }
 
