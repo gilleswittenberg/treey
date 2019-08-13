@@ -1,5 +1,5 @@
-import createEvent from "./createEvent"
-import createItem from "./createItem"
+import createEvent from "./factories/createEvent"
+import createItem from "./factories/createItem"
 import * as database from "./database/database"
 import toArray from "./utils/toArray"
 

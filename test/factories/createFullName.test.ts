@@ -1,4 +1,4 @@
-import createFullName, { parseFullName } from "../src/createFullName"
+import createFullName, { parseFullName } from "../../src/factories/createFullName"
 
 describe("createFullName", () => {
 

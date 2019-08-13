@@ -1,4 +1,4 @@
-import createEvent from "../src/createEvent"
+import createEvent from "../../src/factories/createEvent"
 
 test("Event.datetime", () => {
   const date = new Date()

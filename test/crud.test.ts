@@ -1,5 +1,5 @@
 import { create, read, update, del, index } from "../src/crud"
-import createEvent from "../src/createEvent"
+import createEvent from "../src/factories/createEvent"
 import { clear } from "../src/database/database"
 
 beforeEach(async () => await clear())

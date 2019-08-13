@@ -1,6 +1,6 @@
 import * as crud from "./crud"
-import createEvent from "./createEvent"
-import createTreeItem from "./tree/createTreeItem"
+import createEvent from "./factories/createEvent"
+import createTreeItem from "./factories/createTreeItem"
 
 export const init = async () : Promise<OptionalTreeItem> => {
   try {

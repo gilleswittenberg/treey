@@ -1,5 +1,5 @@
-import toArray from "./utils/toArray"
-//import generateHash from "./crypto/generateHash"
+import toArray from "../utils/toArray"
+//import generateHash from "../crypto/generateHash"
 
 const reduceState = (state: State, event: ItemEvent) : State => {
 

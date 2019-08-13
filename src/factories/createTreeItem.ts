@@ -1,6 +1,6 @@
 import last from "../utils/last"
-import createFullName from "../createFullName"
-import createUnknownTreeItem from "../createUnknownTreeItem"
+import createFullName from "./createFullName"
+import createUnknownTreeItem from "./createUnknownTreeItem"
 
 const isItem = (id: Id, item: Item) : boolean => {
   const ids = item.state.ids || []
