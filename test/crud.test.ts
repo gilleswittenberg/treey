@@ -1,11 +1,11 @@
-import crud from "../src/crud"
+import { create, read, update, del, index } from "../src/crud"
 import createEvent from "../src/createEvent"
-import database from "../src/database/database"
+import { clear } from "../src/database/database"
 
-beforeEach(async () => await database.clear())
+beforeEach(async () => await clear())
 
 test("create", async () => {
-  const item = await crud.create()
+  const item = await create()
   const dbItem = item as DBItem
   expect(dbItem.id).not.toBeNull()
   expect(item.events.length).toBe(2)
@@ -16,31 +16,31 @@ test("create", async () => {
 })
 
 test("read", async () => {
-  const newItem = await crud.create() as DBItem
+  const newItem = await create() as DBItem
   const id = { name: newItem.id }
-  const item = await crud.read(id)
+  const item = await read(id)
   expect(item).not.toBeUndefined()
 })
 
 test("update", async () => {
-  const newItem = await crud.create() as DBItem
+  const newItem = await create() as DBItem
   const id = { name: newItem.id }
   const event = createEvent("DataSet", { data: "Lorum Ipsum" })
-  const item = await crud.update(id, [event])
+  const item = await update(id, [event])
   expect(item!.events!.length).toBe(3)
   expect(item!.state!.data).toBe("Lorum Ipsum")
 })
 
 test("del", async () => {
-  const newItem = await crud.create() as DBItem
+  const newItem = await create() as DBItem
   const id = { name: newItem.id }
-  const item = await crud.del(id)
+  const item = await del(id)
   expect(item!.events![2].type).toBe("Burn")
 })
 
 test("index", async () => {
-  await crud.create()
-  await crud.create()
-  const items = await crud.index()
+  await create()
+  await create()
+  const items = await index()
   expect(items.length).toBe(2)
 })

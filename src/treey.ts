@@ -1,4 +1,4 @@
-import crud from "./crud"
+import * as crud from "./crud"
 import createEvent from "./createEvent"
 import createTreeItem from "./tree/createTreeItem"
 

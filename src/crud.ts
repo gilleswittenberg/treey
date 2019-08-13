@@ -1,34 +1,26 @@
 import createEvent from "./createEvent"
 import createItem from "./createItem"
-import database from "./database/database"
+import * as database from "./database/database"
 import toArray from "./utils/toArray"
 
-const create = async (isRoot = false) : Promise<Item> => {
+export const create = async (isRoot = false) : Promise<Item> => {
   const itemEventCreate = createEvent("Create")
   const item = createItem(itemEventCreate)
   return await database.create(item, isRoot)
 }
 
-const read = async (id: Id) : Promise<OptionalItem> => {
+export const read = async (id: Id) : Promise<OptionalItem> => {
   return await database.read(id)
 }
 
-const update = async (id: Id, events: ItemEvent | ItemEvents) : Promise<OptionalItem> => {
+export const update = async (id: Id, events: ItemEvent | ItemEvents) : Promise<OptionalItem> => {
   return await database.update(id, toArray(events))
 }
 
-const del = async (id: Id) : Promise<OptionalItem> => {
+export const del = async (id: Id) : Promise<OptionalItem> => {
   return await database.del(id)
 }
 
-const index = async () : Promise<Items> => {
+export const index = async () : Promise<Items> => {
   return await database.index()
-}
-
-export default {
-  create,
-  read,
-  update,
-  del,
-  index
 }

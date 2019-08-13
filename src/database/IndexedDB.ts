@@ -49,7 +49,7 @@ const getDatabase = async () : Promise<IDBDatabase> => {
 
 // API
 
-const getItem = async (id: UUID) => {
+export const getItem = async (id: UUID) => {
   const database = await getDatabase()
   const objectStore = database.transaction("items", "readwrite").objectStore("items")
   return new Promise<DBItem>((resolve, reject) => {
@@ -68,7 +68,7 @@ const getItem = async (id: UUID) => {
   })
 }
 
-const getItems = async () => {
+export const getItems = async () => {
   const database = await getDatabase()
   const objectStore = database.transaction("items", "readwrite").objectStore("items")
   return new Promise<DBItems>((resolve, reject) => {
@@ -86,7 +86,7 @@ const getItems = async () => {
   })
 }
 
-const addItem = async (item: DBItem) => {
+export const addItem = async (item: DBItem) => {
   const database = await getDatabase()
   const objectStore = database.transaction("items", "readwrite").objectStore("items")
   return new Promise<DBItem>((resolve, reject) => {
@@ -102,7 +102,7 @@ const addItem = async (item: DBItem) => {
   })
 }
 
-const putItem = async (item: DBItem) => {
+export const putItem = async (item: DBItem) => {
   const database = await getDatabase()
   const objectStore = database.transaction("items", "readwrite").objectStore("items")
   return new Promise<DBItem>((resolve, reject) => {
@@ -118,7 +118,7 @@ const putItem = async (item: DBItem) => {
   })
 }
 
-const clear = async () => {
+export const clear = async () => {
   const database = await getDatabase()
   const objectStore = database.transaction("items", "readwrite").objectStore("items")
   return new Promise<DBItems>((resolve, reject) => {
@@ -132,12 +132,4 @@ const clear = async () => {
       resolve([])
     }
   })
-}
-
-export default {
-  addItem,
-  getItem,
-  getItems,
-  putItem,
-  clear
 }
