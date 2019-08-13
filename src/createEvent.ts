@@ -1,35 +1,33 @@
-const validateEventPayload = (type: ItemEventType, payload?: ItemEventPayload) : ItemEventPayload | null => {
+const validateEventPayload = (type: ItemEventType, payload?: ItemEventPayload) : Optional<ItemEventPayload> => {
 
-  if (payload == null) return null
+  if (payload === undefined) return undefined
 
   switch (type) {
   case "Create":
-    return null
+    return undefined
   case "IdentityAdd":
-    return payload.id != null ? { id: payload.id } : null
+    return payload.id !== undefined ? { id: payload.id } : undefined
   case "IdentityRemove":
-    return payload.id != null ? { id: payload.id } : null
+    return payload.id !== undefined ? { id: payload.id } : undefined
   case "Burn":
-    return null
+    return undefined
   case "SchemaSet":
-    return payload.schema != null ? { schema: payload.schema } : null
+    return payload.schema !== undefined ? { schema: payload.schema } : undefined
   case "DataSet":
-    return payload.data != null ? { data: payload.data } : null
+    return payload.data !== undefined ? { data: payload.data } : undefined
   case "RelationAdd":
-    return payload.id != null ? { id: payload.id, index: payload.index } : null
+    return payload.id !== undefined ? { id: payload.id, index: payload.index } : undefined
   case "RelationRemove":
-    return payload.id != null ? { id: payload.id, index: payload.index } : null
+    return payload.id !== undefined ? { id: payload.id, index: payload.index } : undefined
   case "Prune":
-    return payload.state != null ? { state: payload.state } : null
+    return payload.state !== undefined ? { state: payload.state } : undefined
   }
-
-  return null
 }
 
 const createEvent = (type: ItemEventType, payload?: ItemEventPayload) : ItemEvent => {
   const datetime = new Date()
   const validatedPayload = validateEventPayload(type, payload)
-  return validatedPayload != null ? { type, datetime, payload: validatedPayload } : { type, datetime }
+  return validatedPayload !== undefined ? { type, datetime, payload: validatedPayload } : { type, datetime }
 }
 
 export default createEvent
