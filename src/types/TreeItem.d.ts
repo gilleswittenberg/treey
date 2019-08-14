@@ -1,4 +1,4 @@
-declare interface TreeItem extends Item {
+declare type TreeItem = Item & {
   readonly relations: TreeItems
   readonly name: FullName
   readonly isCyclic: boolean

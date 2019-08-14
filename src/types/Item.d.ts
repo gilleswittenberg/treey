@@ -9,7 +9,7 @@ declare type ItemEventType =
   "RelationRemove" |
   "Prune"
 
-declare interface ItemEventPayload {
+declare type ItemEventPayload = {
   readonly state?: State
   readonly id?: Id
   readonly schema?: Schema
@@ -17,14 +17,14 @@ declare interface ItemEventPayload {
   readonly index?: Index
 }
 
-declare interface ItemEvent {
+declare type ItemEvent = {
   readonly type: ItemEventType
   readonly datetime: Date
   readonly payload?: ItemEventPayload
 }
 declare type ItemEvents = ItemEvent[]
 
-declare interface State {
+declare type State = {
   readonly ids?: Ids
   readonly schema?: Schema
   readonly data?: Data
