@@ -1,6 +1,6 @@
 import createTreeItem from "../../src/factories/createTreeItem"
+import { createItem } from "../../src/factories/createItem"
 import createEvent from "../../src/factories/createEvent"
-import createItem from "../../src/factories/createItem"
 
 test("leaf", () => {
   const eventCreate = createEvent("Create")

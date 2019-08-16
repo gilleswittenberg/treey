@@ -1,11 +1,17 @@
-import toArray from "../utils/toArray"
-//import generateHash from "../crypto/generateHash"
+// @TODO:
+// Dependently Typed Events
+// ===============
+// first event has to be Create
+// secondary events can not be Create
+// after Destroy no new events are allowed?
 
-const reduceState = (state: State, event: ItemEvent) : State => {
+// @TODO: generate hashes for each state
+
+const reduceEvent = (state: State, event: ItemEvent) : State => {
 
   switch (event.type) {
   case "Create": {
-    return {}
+    return state
   }
   case "IdentityAdd": {
     const id = event.payload ? event.payload.id : null
@@ -57,32 +63,14 @@ const reduceState = (state: State, event: ItemEvent) : State => {
   return {}
 }
 
-const reduceItem = (item: Item | null, event: ItemEvent) : Item => {
-
-  if (item == null && event.type !== "Create") throw new Error ("Item can not be null")
-  if (item != null && event.type === "Create") throw new Error ("First ItemEvent should be Create")
-  if (item != null && item.events[item.events.length - 1].type === "Burn") throw new Error ("Can not add additional event after Burn event")
-
-  const currentEvents = item != null ? item.events : []
-  const events = currentEvents.concat(event)
-  const currentState = item != null ? item.state : {}
-  const state = reduceState(currentState, event) || {}
-  //const hash = generateHash(state)
-  //const currentHashes = is ? item.hashes : []
-  //const hashes = currentHashes.concat(hash)
-
+const reduceEvents = (events: NonEmptyArray<ItemEvent>, item?: Item) : Item => {
+  const currentEvents = item ? item.events : []
+  const currentState = item ? item.state : {}
   return {
-    events,
-    state,
-    //hashes,
-    //hash
+    events: currentEvents.concat(events),
+    state: events.reduce(reduceEvent, currentState)
   }
 }
 
-const createItem = (events: ItemEvent | ItemEvents) : Item => {
-  const item = toArray(events).reduce(reduceItem, null)
-  if (item == null) throw new Error ("Can not create item without events")
-  return item
-}
-export const updateItem = (item: Item, events: ItemEvent | ItemEvents) : Item => toArray(events).reduce(reduceItem, item)
-export default createItem
+export const createItem = (events: NonEmptyArray<ItemEvent>) : Item => reduceEvents(events)
+export const updateItem = (item: Item, events: NonEmptyArray<ItemEvent>) : Item => reduceEvents(events, item)

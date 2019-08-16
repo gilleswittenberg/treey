@@ -9,7 +9,7 @@ export const create = async (item: Item, isRoot = false) => {
   const name = createUUID()
   const id = { name }
   const itemEventIdentityAdd = createEvent("IdentityAdd", { id })
-  const updatedItem = updateItem(item, itemEventIdentityAdd)
+  const updatedItem = updateItem(item, [itemEventIdentityAdd])
   const dbItem = { id: name, isRoot, ...updatedItem }
   return isBrowser ? await IndexedDB.addItem(dbItem) : await MemoryDB.create(dbItem)
 }
@@ -20,7 +20,7 @@ export const read = async (treeyId: Id) => {
   return isBrowser ? await IndexedDB.getItem(id) : await MemoryDB.read(id)
 }
 
-export const update = async (id: Id, events: ItemEvents) => {
+export const update = async (id: Id, events: NonEmptyArray<ItemEvent>) => {
   const item = await read(id)
   if (item == null) return undefined
   const updatedItem = updateItem(item, events)
