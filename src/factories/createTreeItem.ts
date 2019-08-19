@@ -24,9 +24,7 @@ const itemName = (item: Item) : FullName => {
 }
 
 const itemIsBurned = (item: Item) : boolean => {
-  const lastEvent = last(item.events)
-  if (lastEvent === undefined) return false
-  return lastEvent.type === "Burn"
+  return item.events.find(event => event.type === "Destroy") !== undefined
 }
 
 const createTreeItem = (item: Item, items: Items = [], parentItems: Items = [], isCyclic = false) : TreeItem => {

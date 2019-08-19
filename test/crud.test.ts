@@ -10,7 +10,7 @@ test("create", async () => {
   expect(dbItem.id).not.toBeNull()
   expect(item.events.length).toBe(2)
   expect(item.events[0].type).toBe("Create")
-  expect(item.events[1].type).toBe("IdentityAdd")
+  expect(item.events[1].type).toBe("Identify")
   expect(item.state.ids![0].name).toBe(dbItem.id)
   expect(item.state.ids![0].protocol).toBeUndefined()
 })
@@ -25,7 +25,7 @@ test("read", async () => {
 test("update", async () => {
   const newItem = await create() as DBItem
   const id = { name: newItem.id }
-  const event = createEvent("DataSet", { data: "Lorum Ipsum" })
+  const event = createEvent("Set", { data: "Lorum Ipsum" })
   const item = await update(id, [event])
   expect(item!.events!.length).toBe(3)
   expect(item!.state!.data).toBe("Lorum Ipsum")
@@ -35,7 +35,7 @@ test("del", async () => {
   const newItem = await create() as DBItem
   const id = { name: newItem.id }
   const item = await del(id)
-  expect(item!.events![2].type).toBe("Burn")
+  expect(item!.events![2].type).toBe("Destroy")
 })
 
 test("index", async () => {

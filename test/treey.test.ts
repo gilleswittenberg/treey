@@ -13,8 +13,8 @@ describe("read", () => {
     expect(item).not.toBeUndefined()
   })
 
-  test("undefined", async () => {
-    const id = { name: "undefined" }
+  test("undefined item", async () => {
+    const id = { name: "not defined" }
     const item = await read(id)
     expect(item).toBeUndefined()
   })

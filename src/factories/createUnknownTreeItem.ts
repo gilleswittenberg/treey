@@ -1,7 +1,7 @@
 import createFullName from "./createFullName"
 
-const createUnknownTreeItem = (id: Id) : TreeItem => {
-  return {
+const createUnknownTreeItem = (id: Id) : TreeItem => (
+  {
     state: {},
     events: [],
     relations: [],
@@ -10,6 +10,6 @@ const createUnknownTreeItem = (id: Id) : TreeItem => {
     isCyclic: false,
     isBurned: false
   }
-}
+)
 
 export default createUnknownTreeItem

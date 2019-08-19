@@ -32,10 +32,10 @@ export const createAndAdd = async (data: Data, parentId: Id) : Promise<OptionalT
     const id = item.state.ids && item.state.ids[0]
     if (!id) return await init()
 
-    const eventDataSet = createEvent("DataSet", { data })
+    const eventDataSet = createEvent("Set", { data })
     await crud.update(id, eventDataSet)
 
-    const eventRelationAdd = createEvent("RelationAdd", { id })
+    const eventRelationAdd = createEvent("Relate", { id })
     await crud.update(parentId, eventRelationAdd)
 
     return await init()
@@ -47,7 +47,7 @@ export const createAndAdd = async (data: Data, parentId: Id) : Promise<OptionalT
 
 export const update = async (id: Id, data: Data) : Promise<OptionalTreeItem> => {
   try {
-    const event = createEvent("DataSet", { data })
+    const event = createEvent("Set", { data })
     await crud.update(id, event)
     return await init()
   } catch (err) {
@@ -58,7 +58,7 @@ export const update = async (id: Id, data: Data) : Promise<OptionalTreeItem> => 
 
 export const remove = async (id: Id, parentId: Id, index: Index) : Promise<OptionalTreeItem> => {
   try {
-    const event = createEvent("RelationRemove", { id, index })
+    const event = createEvent("Unrelate", { id, index })
     await crud.update(parentId, event)
     return await init()
   } catch (err) {
@@ -69,10 +69,10 @@ export const remove = async (id: Id, parentId: Id, index: Index) : Promise<Optio
 
 export const move = async (id: Id, oldParentId: Id, oldIndex: Index, parentId: Id, index: Index) : Promise<OptionalTreeItem> => {
   try {
-    const eventRelationRemove = createEvent("RelationRemove", { id, index: oldIndex })
+    const eventRelationRemove = createEvent("Unrelate", { id, index: oldIndex })
     await crud.update(oldParentId, eventRelationRemove)
 
-    const eventRelationAdd = createEvent("RelationAdd", { id, index })
+    const eventRelationAdd = createEvent("Relate", { id, index })
     await crud.update(parentId, eventRelationAdd)
 
     return await init()

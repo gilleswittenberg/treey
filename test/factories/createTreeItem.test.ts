@@ -4,7 +4,7 @@ import createEvent from "../../src/factories/createEvent"
 
 test("leaf", () => {
   const eventCreate = createEvent("Create")
-  const eventIdentityAdd = createEvent("IdentityAdd", { id: { name: "a" } })
+  const eventIdentityAdd = createEvent("Identify", { id: { name: "a" } })
   const item = createItem([eventCreate, eventIdentityAdd])
   const treeItem = createTreeItem(item)
   expect(treeItem.name).toBe("@a")
@@ -16,13 +16,13 @@ test("leaf", () => {
 
 test("relations", () => {
   const eventCreate = createEvent("Create")
-  const eventIdentityAddRelation0 = createEvent("IdentityAdd", { id: { name: "r0" } })
+  const eventIdentityAddRelation0 = createEvent("Identify", { id: { name: "r0" } })
   const relation0 = createItem([eventCreate, eventIdentityAddRelation0])
-  const eventIdentityAddRelation1 = createEvent("IdentityAdd", { id: { name: "r1" } })
+  const eventIdentityAddRelation1 = createEvent("Identify", { id: { name: "r1" } })
   const relation1 = createItem([eventCreate, eventIdentityAddRelation1])
-  const eventIdentityAdd = createEvent("IdentityAdd", { id: { name: "a" } })
-  const eventRelationAdd0 = createEvent("RelationAdd", { id: { name: "r0" } })
-  const eventRelationAdd1 = createEvent("RelationAdd", { id: { name: "r1" } })
+  const eventIdentityAdd = createEvent("Identify", { id: { name: "a" } })
+  const eventRelationAdd0 = createEvent("Relate", { id: { name: "r0" } })
+  const eventRelationAdd1 = createEvent("Relate", { id: { name: "r1" } })
   const item = createItem([eventCreate, eventIdentityAdd, eventRelationAdd0, eventRelationAdd1])
   const treeItem = createTreeItem(item, [item, relation0, relation1])
   expect(treeItem.name).toBe("@a")
@@ -33,11 +33,11 @@ test("relations", () => {
 
 test("isKnown", () => {
   const eventCreate = createEvent("Create")
-  const eventIdentityAddRelation1 = createEvent("IdentityAdd", { id: { name: "r1" } })
+  const eventIdentityAddRelation1 = createEvent("Identify", { id: { name: "r1" } })
   const relation1 = createItem([eventCreate, eventIdentityAddRelation1])
-  const eventIdentityAdd = createEvent("IdentityAdd", { id: { name: "a" } })
-  const eventRelationAdd0 = createEvent("RelationAdd", { id: { name: "r0" } })
-  const eventRelationAdd1 = createEvent("RelationAdd", { id: { name: "r1" } })
+  const eventIdentityAdd = createEvent("Identify", { id: { name: "a" } })
+  const eventRelationAdd0 = createEvent("Relate", { id: { name: "r0" } })
+  const eventRelationAdd1 = createEvent("Relate", { id: { name: "r1" } })
   const item = createItem([eventCreate, eventIdentityAdd, eventRelationAdd0, eventRelationAdd1])
   const treeItem = createTreeItem(item, [item, relation1])
   expect(treeItem.name).toBe("@a")
@@ -50,8 +50,8 @@ test("isKnown", () => {
 
 test("isCyclic", () => {
   const eventCreate = createEvent("Create")
-  const eventIdentityAdd = createEvent("IdentityAdd", { id: { name: "a" } })
-  const eventRelationAdd = createEvent("RelationAdd", { id: { name: "a" } })
+  const eventIdentityAdd = createEvent("Identify", { id: { name: "a" } })
+  const eventRelationAdd = createEvent("Relate", { id: { name: "a" } })
   const item = createItem([eventCreate, eventIdentityAdd, eventRelationAdd])
   const treeItem = createTreeItem(item, [item])
   expect(treeItem.relations.length).toBe(1)

@@ -12,18 +12,12 @@ test("Event Create", () => {
   expect(event.payload).toBeUndefined()
 })
 
-test("Event IdentityAdd", () => {
+test("Event Identify", () => {
   const id = { name: "name"}
-  const event = createEvent("IdentityAdd", { id })
+  const event = createEvent("Identify", { id })
   expect(event.payload!.id).toEqual(id)
 })
 
-test("Event IdentityAdd invalid payload", () => {
-  const event = createEvent("IdentityAdd", { data: "name" })
-  expect(event.payload).toBeUndefined()
-})
-
-test("Event IdentityRemove invalid payload", () => {
-  const event = createEvent("IdentityRemove", { data: "name" })
-  expect(event.payload).toBeUndefined()
+test("Event Identify invalid payload", () => {
+  expect(() => createEvent("Identify", { data: "name" })).toThrow()
 })
