@@ -1,11 +1,11 @@
 import last from "../utils/last"
 import createFullName from "./createFullName"
 import createUnknownTreeItem from "./createUnknownTreeItem"
+import isId from "../lib/isId"
 
 const isItem = (id: Id, item: Item) : boolean => {
   const ids = item.state.ids || []
-  // @TODO: check id.protocol
-  return ids.find(itemId => itemId.name === id.name) !== undefined
+  return ids.find(itemId => isId(itemId, id)) !== undefined
 }
 
 const findItem = (id: Id, items: Items) : OptionalItem => {

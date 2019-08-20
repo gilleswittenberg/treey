@@ -1,3 +1,5 @@
+import isId from "../lib/isId"
+
 const type: ItemEventType = "Unrelate"
 
 const payloadBlueprint: ItemEventPayloadBlueprint = [
@@ -12,8 +14,6 @@ const payloadBlueprint: ItemEventPayloadBlueprint = [
     isRequired: false
   }
 ]
-
-const isId = (id: Id, id1: Id) : boolean => id.protocol === id1.protocol && id.name === id1.name
 
 const removeIdFromIndex = (relations: Ids, id: Id, index: Index) : Ids => {
   const relation = relations[index]
