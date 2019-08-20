@@ -3,7 +3,7 @@ declare type TreeItem = Item & {
   readonly name: FullName
   readonly isCyclic: boolean
   readonly isKnown: boolean
-  readonly isBurned: boolean
+  readonly isDestroyed: boolean
 }
 declare type OptionalTreeItem = Optional<TreeItem>
 declare type TreeItems = TreeItem[]

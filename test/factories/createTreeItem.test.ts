@@ -10,7 +10,7 @@ test("leaf", () => {
   expect(treeItem.name).toBe("@a")
   expect(treeItem.relations).toEqual([])
   expect(treeItem.isKnown).toBe(true)
-  expect(treeItem.isBurned).toBe(false)
+  expect(treeItem.isDestroyed).toBe(false)
   expect(treeItem.isCyclic).toBe(false)
 })
 

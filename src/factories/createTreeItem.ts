@@ -23,7 +23,7 @@ const itemName = (item: Item) : FullName => {
   return id ? createFullName(id) : "Unknown"
 }
 
-const itemIsBurned = (item: Item) : boolean => {
+const itemIsDestroyed = (item: Item) : boolean => {
   return item.events.find(event => event.type === "Destroy") !== undefined
 }
 
@@ -36,9 +36,9 @@ const createTreeItem = (item: Item, items: Items = [], parentItems: Items = [], 
     return item !== undefined ? createTreeItem(item, items, parentItems, isCyclic) : createUnknownTreeItem(id)
   })
   const name = itemName(item)
-  const isBurned = itemIsBurned(item)
+  const isDestroyed = itemIsDestroyed(item)
   const isKnown = true
-  return { ...item, relations: itemRelations, name, isKnown, isCyclic, isBurned }
+  return { ...item, relations: itemRelations, name, isKnown, isCyclic, isDestroyed }
 }
 
 export default createTreeItem

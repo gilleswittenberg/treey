@@ -8,7 +8,7 @@ const createUnknownTreeItem = (id: Id) : TreeItem => (
     name: createFullName(id),
     isKnown: false,
     isCyclic: false,
-    isBurned: false
+    isDestroyed: false
   }
 )
 
