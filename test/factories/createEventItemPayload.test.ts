@@ -15,6 +15,7 @@ test("Identify id", () => {
 })
 
 test("Identify id extra keys", () => {
+  // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
   expect(() => createEventItemPayload("Identify", { id : { name: "Joe", extra: "x" } as Id })).toThrow()
 })
 
@@ -28,10 +29,12 @@ test("Identify extra", () => {
 })
 
 test("Identify incorrect", () => {
+  // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
   expect(() => createEventItemPayload("Identify", { incorrect: "" } as ItemEventPayload)).toThrow()
 })
 
 test("Identify extra incorrect", () => {
+  // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
   const payload = createEventItemPayload("Identify", { id : { name: "Jane" }, index: 1, incorrect: "" } as ItemEventPayload)
   expect(payload).toEqual({ id: { name: "Jane" } })
 })

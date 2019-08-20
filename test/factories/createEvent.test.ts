@@ -15,6 +15,7 @@ test("Event Create", () => {
 test("Event Identify", () => {
   const id = { name: "name"}
   const event = createEvent("Identify", { id })
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   expect(event.payload!.id).toEqual(id)
 })
 
