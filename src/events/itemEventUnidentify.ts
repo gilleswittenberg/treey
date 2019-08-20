@@ -5,7 +5,7 @@ const payloadBlueprint: ItemEventPayloadBlueprint = [{
   isRequired: true
 }]
 const reducer = (state: State, id: Id) : State => {
-  const ids = state.ids ? state.ids.concat(id) : [id]
+  const ids = state.ids ? state.ids.filter(i => i.protocol !== id.protocol && i.name !== id.name) : undefined
   return { ...state, ids }
 }
 
