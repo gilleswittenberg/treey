@@ -3,6 +3,7 @@
     "outDir": "dist",
     "target": "ES5",
     "module": "CommonJS",
+    "declaration": true,
     "sourceMap": true,
     "lib": [
       "DOM",
