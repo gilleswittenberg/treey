@@ -67,7 +67,17 @@ describe("move", () => {
     const treeItem = await init()
     const treeItem2 = await createAndAdd({ child1: "Child1" }, treeItem!.state.ids![0])
     const treeItem3 = await createAndAdd({ child2: "Child2" }, treeItem2!.state.ids![0])
-    const treeItem4 = await move(treeItem3!.relations[1].state.ids![0], treeItem3!.state.ids![0], 1, treeItem3!.relations[0].state.ids![0], 0)
+    const treeItem4 = await move(treeItem3!.relations[1].state.ids![0], treeItem3!.state.ids![0], treeItem3!.relations[0].state.ids![0], 1, 0)
+    expect(treeItem4!.relations.length).toBe(1)
+    expect(treeItem4!.relations[0].relations.length).toBe(1)
+    expect(treeItem4!.relations[0].relations[0].state.ids![0]).toBe(treeItem3!.relations[1].state.ids![0])
+  })
+
+  test("move optional indices", async () => {
+    const treeItem = await init()
+    const treeItem2 = await createAndAdd({ child1: "Child1" }, treeItem!.state.ids![0])
+    const treeItem3 = await createAndAdd({ child2: "Child2" }, treeItem2!.state.ids![0])
+    const treeItem4 = await move(treeItem3!.relations[1].state.ids![0], treeItem3!.state.ids![0], treeItem3!.relations[0].state.ids![0])
     expect(treeItem4!.relations.length).toBe(1)
     expect(treeItem4!.relations[0].relations.length).toBe(1)
     expect(treeItem4!.relations[0].relations[0].state.ids![0]).toBe(treeItem3!.relations[1].state.ids![0])

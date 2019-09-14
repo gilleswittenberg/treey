@@ -67,7 +67,7 @@ export const remove = async (id: Id, parentId: Id, index?: Index) : Promise<Opti
   }
 }
 
-export const move = async (id: Id, oldParentId: Id, oldIndex: Index, parentId: Id, index: Index) : Promise<OptionalTreeItem> => {
+export const move = async (id: Id, oldParentId: Id, parentId: Id, oldIndex?: Index, index?: Index) : Promise<OptionalTreeItem> => {
   try {
     const eventUnrelate = createEvent("Unrelate", { id, index: oldIndex })
     await crud.update(oldParentId, eventUnrelate)
