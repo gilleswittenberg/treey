@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { create, read, update, del, index } from "../src/crud"
 import createEvent from "../src/factories/createEvent"
 import { clear } from "../src/database/database"
@@ -11,9 +13,7 @@ test("create", async () => {
   expect(item.events.length).toBe(2)
   expect(item.events[0].type).toBe("Create")
   expect(item.events[1].type).toBe("Identify")
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   expect(item.state.ids![0].name).toBe(dbItem.id)
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   expect(item.state.ids![0].protocol).toBeUndefined()
 })
 

@@ -96,7 +96,7 @@ export const addItem = async (item: DBItem) => {
       console.error(event)
       reject()
     }
-    request.onsuccess = event => {
+    request.onsuccess = () => {
       resolve(item)
     }
   })
@@ -112,7 +112,7 @@ export const putItem = async (item: DBItem) => {
       console.error(event)
       reject()
     }
-    request.onsuccess = event => {
+    request.onsuccess = () => {
       resolve(item)
     }
   })
