@@ -8,8 +8,8 @@ import { updateItem } from "../factories/createItem"
 export const create = async (item: Item, isRoot = false) => {
   const name = createUUID()
   const id = { name }
-  const itemEventIdentityAdd = createEvent("Identify", { id })
-  const updatedItem = updateItem(item, [itemEventIdentityAdd])
+  const itemEventIdentify = createEvent("Identify", { id })
+  const updatedItem = updateItem(item, [itemEventIdentify])
   const dbItem = { id: name, isRoot, ...updatedItem }
   return isBrowser ? await IndexedDB.addItem(dbItem) : await MemoryDB.create(dbItem)
 }

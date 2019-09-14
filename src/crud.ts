@@ -4,8 +4,8 @@ import * as database from "./database/database"
 import toArray from "./utils/toArray"
 
 export const create = async (isRoot = false) : Promise<Item> => {
-  const itemEventCreate = createEvent("Create")
-  const item = createItem([itemEventCreate])
+  const eventCreate = createEvent("Create")
+  const item = createItem([eventCreate])
   return await database.create(item, isRoot)
 }
 
