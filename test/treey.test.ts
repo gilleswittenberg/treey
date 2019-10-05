@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { init, read, createAndAdd, update, remove, move } from "../src/treey"
+import { init, read, createAndAdd, update, remove, move, clone } from "../src/treey"
 import { create } from "../src/crud"
 import { clear } from "../src/database/database"
 
@@ -81,5 +81,17 @@ describe("move", () => {
     expect(treeItem4!.relations.length).toBe(1)
     expect(treeItem4!.relations[0].relations.length).toBe(1)
     expect(treeItem4!.relations[0].relations[0].state.ids![0]).toBe(treeItem3!.relations[1].state.ids![0])
+  })
+})
+
+describe("clone", () => {
+
+  test("clone", async () => {
+    const treeItem = await init()
+    const treeItem2 = await createAndAdd({ child1: "Child1" }, treeItem!.state.ids![0])
+    const treeItem3 = await createAndAdd({ child2: "Child2" }, treeItem!.state.ids![0])
+    const treeItem4 = await clone(treeItem3!.relations[1].state.ids![0], treeItem2!.relations[0].state.ids![0])
+    expect(treeItem4!.relations[0].relations.length).toBe(1)
+    expect(treeItem4!.relations[0].relations[0].state.data!).toBe(treeItem4!.relations[1].state.data!)
   })
 })

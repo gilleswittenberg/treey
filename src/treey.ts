@@ -81,3 +81,15 @@ export const move = async (id: Id, oldParentId: Id, parentId: Id, oldIndex?: Ind
     return undefined
   }
 }
+
+export const clone = async (id: Id, parentId: Id, index?: Index) : Promise<OptionalTreeItem> => {
+  try {
+    const eventRelate = createEvent("Relate", { id, index })
+    await crud.update(parentId, eventRelate)
+
+    return await init()
+  } catch (err) {
+    console.error(err)
+    return undefined
+  }
+}
