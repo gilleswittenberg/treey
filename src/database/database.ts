@@ -1,12 +1,12 @@
 import isBrowser from "../utils/isBrowser"
 import * as IndexedDB from "./IndexedDB"
 import * as MemoryDB from "./MemoryDB"
-import createUUID from "../crypto/createUUID"
+import createName from "../crypto/createName"
 import createEvent from "../factories/createEvent"
 import { updateItem } from "../factories/createItem"
 
 export const create = async (item: Item, isRoot = false) => {
-  const name = createUUID()
+  const name = createName()
   const id = { name }
   const itemEventIdentify = createEvent("Identify", { id })
   const updatedItem = updateItem(item, [itemEventIdentify])
