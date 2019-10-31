@@ -49,7 +49,7 @@ const getDatabase = async () : Promise<IDBDatabase> => {
 
 // API
 
-export const getItem = async (id: UUID) => {
+export const getItem = async (id: FullName) => {
   const database = await getDatabase()
   const objectStore = database.transaction("items", "readwrite").objectStore("items")
   return new Promise<DBItem>((resolve, reject) => {

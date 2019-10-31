@@ -7,7 +7,6 @@ declare type Id = {
 }
 declare type OptionalId = Optional<Id>
 declare type Ids = Id[]
-declare type UUID = string
 declare type Hash = string
 declare type Hashes = Hash[]
 

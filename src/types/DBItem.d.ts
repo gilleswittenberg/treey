@@ -1,5 +1,5 @@
 declare type DBItem = Item & {
-  readonly id: UUID
+  readonly id: FullName
   readonly isRoot?: boolean
 }
 declare type OptionalDBItem = Optional<DBItem>
