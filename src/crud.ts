@@ -24,3 +24,8 @@ export const del = async (id: Id) : Promise<OptionalItem> => {
 export const index = async () : Promise<Items> => {
   return await database.index()
 }
+
+export const readMany = async (ids: Ids) : Promise<OptionalItem[]> => {
+  const promises = ids.map(id => read(id))
+  return await Promise.all(promises)
+}

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { create, read, update, del, index } from "../src/crud"
+import { create, read, update, del, index, readMany } from "../src/crud"
 import createEvent from "../src/factories/createEvent"
 import { clear } from "../src/database/database"
 
@@ -71,5 +71,25 @@ describe("index", () => {
     await create()
     const items = await index()
     expect(items.length).toBe(2)
+  })
+})
+
+describe("readMany", () => {
+
+  test("readMany", async () => {
+    const item = await create() as DBItem
+    const item1 = await create() as DBItem
+    const items = await readMany([{ name: item.id }, { name: item1.id }])
+    expect(items.length).toBe(2)
+    expect((items[0] as DBItem).id).toEqual(item.id)
+    expect((items[1] as DBItem).id).toEqual(item1.id)
+  })
+
+  test("readMany undefined", async () => {
+    const item = await create() as DBItem
+    const items = await readMany([{ name: "u" }, { name: item.id }])
+    expect(items.length).toBe(2)
+    expect(items[0]).toBeUndefined()
+    expect((items[1] as DBItem).id).toEqual(item.id)
   })
 })
