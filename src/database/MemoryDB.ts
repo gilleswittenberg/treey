@@ -7,8 +7,7 @@ export const create = async (item: DBItem) : Promise<DBItem> => {
 }
 
 export const read = async (id: FullName) : Promise<OptionalDBItem> => {
-  const item = store[id]
-  return item != null ? item : undefined
+  return store[id]
 }
 
 export const update = async (item: DBItem) : Promise<DBItem> => {
