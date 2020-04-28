@@ -14,16 +14,16 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@types/node": "^13.7.0",
-    "multihashes": "^0.4.15",
-    "typescript": "^3.7.5"
+    "@types/node": "^13.13.4",
+    "multihashes": "^0.4.19",
+    "typescript": "^3.8.3"
   },
   "devDependencies": {
-    "@types/jest": "^25.1.1",
-    "@typescript-eslint/eslint-plugin": "^2.18.0",
-    "@typescript-eslint/parser": "^2.18.0",
+    "@types/jest": "^25.2.1",
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "@typescript-eslint/parser": "^2.30.0",
     "eslint": "^6.8.0",
-    "jest": "^25.1.0",
-    "ts-jest": "^25.1.0"
+    "jest": "^25.5.0",
+    "ts-jest": "^25.4.0"
   }
 }
