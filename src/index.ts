@@ -1,8 +1,9 @@
-import * as Treey from "./treey"
+import * as treey from "./treey"
 import * as crud from "./crud"
 import createFullName, { parseFullName } from "./factories/createFullName"
 
-export default Treey
+export default treey
+export type Treey = typeof treey
 export { crud }
 export { createFullName }
 export { parseFullName }
