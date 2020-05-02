@@ -35,12 +35,5 @@ export type TreeItem = {
   readonly isCyclic: boolean
   readonly isKnown: boolean
   readonly isDestroyed: boolean
-  readonly path?: Path
 }
 export type TreeItems = TreeItem[]
-export type ItemEvent = any
-export type Path = string
-export type Paths = Path[]
-export type TreeNode = {
-  readonly path?: Path
-}
