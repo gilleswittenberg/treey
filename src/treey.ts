@@ -6,7 +6,7 @@ export const init = async () : Promise<OptionalTreeItem> => {
   try {
     const items = await crud.index()
     const rootItem = items.find(item => (item as DBItem).isRoot === true)
-    const root = rootItem != null ? rootItem : await crud.create(true)
+    const root = rootItem !== undefined ? rootItem : await crud.create(true)
     return createTreeItem(root, items)
   } catch (err) {
     console.error(err)
