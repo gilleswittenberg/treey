@@ -1,9 +1,9 @@
 const type: ItemEventType = "Create"
-const reducer = (state: State) : State => ({ ...state })
 const payloadBlueprint = undefined
+const reducer = (state: State) : State => ({ ...state })
 
 export default {
   type,
-  reducer,
-  payloadBlueprint
+  payloadBlueprint,
+  reducer
 }
