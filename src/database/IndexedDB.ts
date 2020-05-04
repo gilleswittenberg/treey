@@ -38,13 +38,9 @@ const initIndexedDB = async () => {
   })
 }
 
-let database: IDBDatabase
-const getDatabase = async () : Promise<IDBDatabase> => {
-  if (database !== undefined) return database
-  database = await initIndexedDB()
-  return database
+const getDatabase = async () => {
+  return await initIndexedDB()
 }
-
 
 // API
 
