@@ -1,5 +1,4 @@
-type IDBDatabaseEventItem = Event & { target: EventTarget | null }
-type IDBDatabaseEventItems = Event & { target: EventTarget | null }
+type IDBDatabaseEvent = Event & { target: EventTarget | null }
 
 // Initialization
 
@@ -59,7 +58,7 @@ export const getItem = async (id: FullName) => {
       console.error(event)
       reject()
     }
-    request.onsuccess = (event: IDBDatabaseEventItem) => {
+    request.onsuccess = (event: IDBDatabaseEvent) => {
       if (event.target == null) return reject()
       const item = (event.target as IDBRequest).result
       if (item == null) return reject()
@@ -78,7 +77,7 @@ export const getItems = async () => {
       console.error(event)
       reject()
     }
-    request.onsuccess = (event: IDBDatabaseEventItems) => {
+    request.onsuccess = (event: IDBDatabaseEvent) => {
       if (event.target == null) return reject()
       const items = (event.target as IDBRequest).result
       resolve(items)
