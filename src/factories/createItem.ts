@@ -1,6 +1,6 @@
 // @TODO:
 // Dependently Typed Events
-// ===============
+// ========================
 // first event has to be Create
 // secondary events can not be Create
 // after Destroy no new events are allowed?
@@ -12,7 +12,7 @@ import itemEvents from "../events/itemEvents"
 const reduceEvent = (state: State, event: ItemEvent) : State => {
 
   const { type, payload: optionalPayload } = event
-  const reducer = itemEvents[type].reducer
+  const { reducer } = itemEvents[type]
 
   const payload = optionalPayload as ItemEventPayload
 
